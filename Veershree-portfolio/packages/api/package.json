@@ -1,0 +1,24 @@
+{
+  "name": "@Veershree-portfolio/api",
+  "type": "module",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts"
+    },
+    "./*": {
+      "default": "./src/*.ts"
+    }
+  },
+  "scripts": {},
+  "dependencies": {
+    "@Veershree-portfolio/db": "workspace:*",
+    "@Veershree-portfolio/env": "workspace:*",
+    "@ts-rest/core": "catalog:",
+    "dotenv": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@Veershree-portfolio/config": "workspace:*",
+    "typescript": "^6.0.2"
+  }
+}
