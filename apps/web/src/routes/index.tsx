@@ -8,9 +8,9 @@ import { ArrowUpRight, ShieldCheck, Trees, TrendingUp, MapPin, Quote } from "luc
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Terra Noble — Premium Land Investments in India" },
+      { title: "Veershree Realty — Premium Land Investments in India" },
       { name: "description", content: "Curated premium land plots in India's most strategic corridors. Clear titles, gated communities, generational value." },
-      { property: "og:title", content: "Terra Noble — Invest in Land, Inherit a Legacy" },
+      { property: "og:title", content: "Veershree Realty — Invest in Land, Inherit a Legacy" },
       { property: "og:description", content: "Hand-picked plots in growth corridors. Trusted by 2,400+ investors." },
     ],
   }),
@@ -76,7 +76,7 @@ function HomePage() {
           <p className="mt-6 font-serif text-3xl lg:text-4xl text-coffee-deep leading-snug italic">
             "They don't make land anymore. We simply find the parcels worth keeping for a generation."
           </p>
-          <div className="eyebrow mt-8 text-coffee">— A. Rao, Founding Partner</div>
+          <div className="eyebrow mt-8 text-coffee">— Aniket Kedari, Founding Partner</div>
         </div>
       </section>
 
@@ -135,7 +135,7 @@ function HomePage() {
         <img src={topo} alt="" className="absolute inset-0 w-full h-full object-cover opacity-10 mix-blend-screen" loading="lazy" aria-hidden />
         <div className="relative max-w-7xl mx-auto px-6 lg:px-10">
           <div className="max-w-2xl">
-            <div className="eyebrow text-gold mb-4">Why Terra Noble</div>
+            <div className="eyebrow text-gold mb-4">Why Veershree Realty</div>
             <h2 className="font-serif text-4xl lg:text-5xl leading-tight">
               The discipline of <em className="text-gold">land</em>, the discretion of a private bank.
             </h2>
@@ -205,7 +205,7 @@ function HomePage() {
           <div className="aspect-[16/8] w-full overflow-hidden shadow-soft border border-border">
             <iframe
               title="Project locations"
-              src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d3889378.4!2d77.5!3d12.97!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1700000000000"
+              src="https://www.google.com/maps?q=chakan+Waki Kh.+Kharabwadi+Kurli+Nanekarwadi+Khalumbre+Mahalunge+pune+maharashtra&output=embed&z=13"
               className="w-full h-full"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
@@ -225,9 +225,9 @@ function HomePage() {
           </div>
           <div className="grid md:grid-cols-3 gap-8">
             {[
-              { q: "Terra Noble made acquiring land feel like buying art — considered, transparent, and quietly powerful.", n: "Vikram S.", r: "Family Office, Bengaluru" },
-              { q: "I have invested with three developers. Only one returned my calls a decade later. That speaks volumes.", n: "Priya M.", r: "NRI Investor, Singapore" },
-              { q: "From documentation to handover, the experience was reminiscent of private banking.", n: "Dr. Anand R.", r: "Surgeon, Chennai" },
+              { q: "Veershree Realty made acquiring land feel like buying art — considered, transparent, and quietly powerful.", n: "Suraj T.", r: "Family Office, Pune" },
+              { q: "I have invested with three developers. Only one returned my calls a decade later. That speaks volumes.", n: "Kalpesh P.", r: "Investor, Pune" },
+              { q: "From documentation to handover, the experience was reminiscent of private banking.", n: "Sarang G.", r: "Customer, Pune" },
             ].map((t) => (
               <figure key={t.n} className="bg-sand p-8 border-t-2 border-gold">
                 <Quote className="text-gold" size={22} />

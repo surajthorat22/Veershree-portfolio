@@ -2,7 +2,7 @@ import { createFileRoute, Link, Outlet, useRouterState } from "@tanstack/react-r
 import { LayoutDashboard, FolderKanban, Inbox, BarChart3, ArrowLeft } from "lucide-react";
 
 export const Route = createFileRoute("/admin")({
-  head: () => ({ meta: [{ title: "Admin — Terra Noble" }, { name: "robots", content: "noindex" }] }),
+  head: () => ({ meta: [{ title: "Admin — Veershree Realty" }, { name: "robots", content: "noindex" }] }),
   component: AdminLayout,
 });
 
@@ -21,9 +21,9 @@ function AdminLayout() {
       <aside className="w-64 bg-coffee-deep text-cream/90 flex flex-col">
         <div className="px-6 py-6 border-b border-cream/10">
           <div className="flex items-baseline gap-1">
-            <span className="font-serif text-xl text-cream">Terra</span>
+            <span className="font-serif text-xl text-cream">Veershree</span>
             <span className="text-gold">·</span>
-            <span className="font-serif text-xl text-cream">Noble</span>
+            <span className="font-serif text-xl text-cream">Realty</span>
           </div>
           <div className="eyebrow text-gold mt-1">Admin Studio</div>
         </div>

@@ -6,9 +6,9 @@ import { ArrowUpRight, MapPin } from "lucide-react";
 export const Route = createFileRoute("/projects/")({
   head: () => ({
     meta: [
-      { title: "Projects — Terra Noble" },
+      { title: "Projects — Veershree Realty" },
       { name: "description", content: "Browse our portfolio of premium gated land developments across India." },
-      { property: "og:title", content: "Premium Land Projects — Terra Noble" },
+      { property: "og:title", content: "Premium Land Projects — Veershree Realty" },
       { property: "og:description", content: "Hand-picked land parcels in India's most strategic growth corridors." },
     ],
   }),

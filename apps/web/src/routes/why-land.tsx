@@ -5,7 +5,7 @@ import topo from "@/assets/topo-pattern.jpg";
 export const Route = createFileRoute("/why-land")({
   head: () => ({
     meta: [
-      { title: "Why Land — Terra Noble" },
+      { title: "Why Land — Veershree Realty" },
       { name: "description", content: "Why land remains the most enduring asset class — and why the wealthy quietly accumulate it." },
       { property: "og:title", content: "Why Land — The Discipline of Real Wealth" },
       { property: "og:description", content: "Apartments depreciate. Land doesn't." },
