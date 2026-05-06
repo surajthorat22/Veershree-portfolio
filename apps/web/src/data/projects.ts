@@ -19,7 +19,7 @@ export const projects: Project[] = [
   {
     id: "verdant-meadows",
     name: "Verdant Meadows",
-    location: "Devanahalli, Bengaluru",
+    location: "Chakan, Pune",
     tagline: "Gated estate plots near the international airport",
     description:
       "An impeccably planned community of 240 premium plots wrapped in landscaped boulevards, just 12 minutes from Kempegowda International Airport.",
@@ -32,7 +32,7 @@ export const projects: Project[] = [
   {
     id: "highland-reserve",
     name: "Highland Reserve",
-    location: "Coorg Foothills, Karnataka",
+    location: "Chakan, Pune",
     tagline: "Hillside parcels overlooking coffee estates",
     description:
       "Discreet, contoured plots set across 92 acres of forested ridges. A retreat designed for second homes and discerning long-term investors.",
@@ -45,7 +45,7 @@ export const projects: Project[] = [
   {
     id: "riverine-isles",
     name: "Riverine Isles",
-    location: "ECR, Chennai",
+    location: "Chakan, Pune",
     tagline: "Waterfront plots on a private inland lagoon",
     description:
       "A rare collection of waterfront plots framed by palm groves and a navigable lagoon, minutes from the East Coast Road belt.",

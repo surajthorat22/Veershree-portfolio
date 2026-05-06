@@ -28,9 +28,9 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Terra Noble — Premium Land Investments in India" },
+      { title: "Veershree Realty — Premium Land Investments in India" },
       { name: "description", content: "Curated premium land plots in India's most strategic corridors. Clear titles, gated communities, generational value." },
-      { property: "og:title", content: "Terra Noble — Premium Land Investments" },
+      { property: "og:title", content: "Veershree Realty — Premium Land Investments" },
       { property: "og:description", content: "Invest in land. Inherit a legacy." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
