@@ -21,13 +21,13 @@ model Project {
   slug        String        @unique
   name        String
   location    String
-  tagline     String
-  description String
-  features    String[]
-  image       String
-  priceFrom   String
-  size        String
-  status      ProjectStatus
+  tagline     String        @default("")
+  description String        @default("")
+  features    String[]      @default([])
+  image       String        @default("")
+  priceFrom   String        @default("")
+  size        String        @default("")
+  status      ProjectStatus @default(Open)
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
 }

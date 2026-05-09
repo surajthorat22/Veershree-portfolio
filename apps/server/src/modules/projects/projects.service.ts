@@ -1,10 +1,13 @@
-import { Inject, Injectable, NotFoundException } from "@nestjs/common";
+import { BadRequestException, Inject, Injectable, NotFoundException } from "@nestjs/common";
 
 import { PrismaService } from "../prisma/prisma.service";
 import type { UpsertProjectDto } from "./projects.dto";
-import type { ProjectDto, ProjectStatusDto } from "./projects.types";
+import { fromDbProjectStatus, toDbProjectStatus, type ProjectDto, type ProjectStatusDb } from "./projects.types";
 
-type DbProjectStatus = "Open" | "FewLeft" | "SoldOut";
+function isPrismaNotFoundError(err: unknown): boolean {
+  // Prisma "record not found" for update/delete is typically P2025.
+  return typeof err === "object" && err !== null && (err as any).code === "P2025";
+}
 
 function slugify(value: string) {
   return value
@@ -12,19 +15,6 @@ function slugify(value: string) {
     .trim()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "");
-}
-
-function toDbStatus(status: ProjectStatusDto | undefined): DbProjectStatus | undefined {
-  if (!status) return undefined;
-  if (status === "Few Left") return "FewLeft";
-  if (status === "Sold Out") return "SoldOut";
-  return "Open";
-}
-
-function fromDbStatus(status: DbProjectStatus): ProjectStatusDto {
-  if (status === "FewLeft") return "Few Left";
-  if (status === "SoldOut") return "Sold Out";
-  return "Open";
 }
 
 @Injectable()
@@ -42,7 +32,7 @@ export class ProjectsService {
     image: string;
     priceFrom: string;
     size: string;
-    status: DbProjectStatus;
+    status: ProjectStatusDb;
     createdAt: Date;
     updatedAt: Date;
   }): ProjectDto {
@@ -57,7 +47,7 @@ export class ProjectsService {
       image: p.image,
       priceFrom: p.priceFrom,
       size: p.size,
-      status: fromDbStatus(p.status),
+      status: fromDbProjectStatus(p.status),
       createdAt: p.createdAt.toISOString(),
       updatedAt: p.updatedAt.toISOString(),
     };
@@ -77,40 +67,52 @@ export class ProjectsService {
   }
 
   async upsert(dto: UpsertProjectDto): Promise<ProjectDto> {
-    const slug = dto.slug?.trim() ? slugify(dto.slug) : slugify(dto.name);
+    const name = dto.name.trim();
+    if (!name) throw new BadRequestException("Name is required");
+
+    const location = dto.location.trim();
+    if (!location) throw new BadRequestException("Location is required");
+
+    const slugSource = dto.slug?.trim() ? dto.slug : name;
+    const slug = slugify(slugSource);
+    if (!slug) throw new BadRequestException("Invalid slug");
+
     const p = await this.prisma.client.project.upsert({
       where: { slug },
       update: {
-        name: dto.name,
-        location: dto.location,
+        name,
+        location,
         tagline: dto.tagline ?? "",
         description: dto.description ?? "",
         features: dto.features ?? [],
         image: dto.image ?? "",
         priceFrom: dto.priceFrom ?? "",
         size: dto.size ?? "",
-        status: (toDbStatus(dto.status) ?? "Open") as any,
+        status: (toDbProjectStatus(dto.status) ?? "Open") as any,
       },
       create: {
         slug,
-        name: dto.name,
-        location: dto.location,
+        name,
+        location,
         tagline: dto.tagline ?? "",
         description: dto.description ?? "",
         features: dto.features ?? [],
         image: dto.image ?? "",
         priceFrom: dto.priceFrom ?? "",
         size: dto.size ?? "",
-        status: (toDbStatus(dto.status) ?? "Open") as any,
+        status: (toDbProjectStatus(dto.status) ?? "Open") as any,
       },
     });
     return this.toDto(p as any);
   }
 
   async deleteBySlug(slug: string): Promise<void> {
-    await this.prisma.client.project.delete({ where: { slug } }).catch(() => {
-      throw new NotFoundException("Project not found");
-    });
+    try {
+      await this.prisma.client.project.delete({ where: { slug } });
+    } catch (err) {
+      if (isPrismaNotFoundError(err)) throw new NotFoundException("Project not found");
+      throw err;
+    }
   }
 }
 

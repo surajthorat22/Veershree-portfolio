@@ -1,5 +1,6 @@
-import { Body, Controller, Delete, Get, Inject, Param, Post, Put } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Inject, Param, Post, Put, UseGuards } from "@nestjs/common";
 
+import { AdminAuthGuard } from "../../guards/admin-auth.guard";
 import type { UpsertProjectDto } from "./projects.dto";
 import { ProjectsService } from "./projects.service";
 import type { ProjectDto } from "./projects.types";
@@ -19,16 +20,19 @@ export class ProjectsController {
   }
 
   @Post()
+  @UseGuards(AdminAuthGuard)
   async create(@Body() body: UpsertProjectDto): Promise<ProjectDto> {
     return await this.projects.upsert(body);
   }
 
   @Put(":slug")
+  @UseGuards(AdminAuthGuard)
   async update(@Param("slug") slug: string, @Body() body: UpsertProjectDto): Promise<ProjectDto> {
     return await this.projects.upsert({ ...body, slug });
   }
 
   @Delete(":slug")
+  @UseGuards(AdminAuthGuard)
   async remove(@Param("slug") slug: string): Promise<{ ok: true }> {
     await this.projects.deleteBySlug(slug);
     return { ok: true as const };

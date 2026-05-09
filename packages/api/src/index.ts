@@ -23,8 +23,8 @@ const project = z.object({
 
 const upsertProject = z.object({
   slug: z.string().optional(),
-  name: z.string(),
-  location: z.string(),
+  name: z.string().trim().min(1).max(200),
+  location: z.string().trim().min(1).max(200),
   tagline: z.string().optional(),
   description: z.string().optional(),
   features: z.array(z.string()).optional(),
@@ -45,7 +45,7 @@ const enquiry = z.object({
 
 const createEnquiry = z.object({
   name: z.string().optional(),
-  mobile: z.string(),
+  mobile: z.string().trim().min(1).max(32),
   location: z.string().optional(),
   message: z.string().optional(),
 });
