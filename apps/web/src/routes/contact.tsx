@@ -5,9 +5,9 @@ import { Phone, Mail, MapPin, MessageCircle } from "lucide-react";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact — Terra Noble" },
+      { title: "Contact — Veershree Realty" },
       { name: "description", content: "Speak with our investment advisors. Visit our Bengaluru studio or reach us by phone." },
-      { property: "og:title", content: "Contact Terra Noble" },
+      { property: "og:title", content: "Contact Veershree Realty" },
       { property: "og:description", content: "Quiet, considered conversations about land." },
     ],
   }),

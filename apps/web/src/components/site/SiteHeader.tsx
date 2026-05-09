@@ -31,9 +31,9 @@ export function SiteHeader() {
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-10 h-20 flex items-center justify-between">
         <Link to="/" className="flex items-baseline gap-2">
-          <span className="font-serif text-2xl tracking-wide text-coffee-deep">Terra</span>
+          <span className="font-serif text-2xl tracking-wide text-coffee-deep">Veershree</span>
           <span className="text-gold text-lg">·</span>
-          <span className="font-serif text-2xl tracking-wide text-coffee-deep">Noble</span>
+          <span className="font-serif text-2xl tracking-wide text-coffee-deep">Realty</span>
         </Link>
 
         <nav className="hidden md:flex items-center gap-10">
