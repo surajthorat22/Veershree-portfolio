@@ -9,3 +9,34 @@ datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
 }
+
+enum ProjectStatus {
+  Open
+  FewLeft
+  SoldOut
+}
+
+model Project {
+  id          String        @id @default(auto()) @map("_id") @db.ObjectId
+  slug        String        @unique
+  name        String
+  location    String
+  tagline     String        @default("")
+  description String        @default("")
+  features    String[]      @default([])
+  image       String        @default("")
+  priceFrom   String        @default("")
+  size        String        @default("")
+  status      ProjectStatus @default(Open)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+model Enquiry {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String?
+  mobile    String
+  location  String?
+  message   String?
+  createdAt DateTime @default(now())
+}
