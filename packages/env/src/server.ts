@@ -4,9 +4,14 @@ import { z } from "zod";
 
 export const env = createEnv({
   server: {
-    DATABASE_URL: z.string().min(1),
-    CORS_ORIGIN: z.url(),
+    DATABASE_URL: z
+      .string()
+      .min(1)
+      .default("mongodb://localhost:27017/terra-noble"),
+    CORS_ORIGIN: z.url().default("http://localhost:5173"),
     NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
+    // Protect write endpoints (POST/PUT/DELETE). If unset, writes are allowed (dev-friendly).
+    ADMIN_TOKEN: z.string().min(1).optional(),
   },
   runtimeEnv: process.env,
   emptyStringAsUndefined: true,
