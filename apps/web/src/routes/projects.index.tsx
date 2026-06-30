@@ -1,9 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { projects } from "@/data/projects";
 import { EnquiryForm } from "@/components/site/EnquiryForm";
+import { QueryEmpty } from "@/components/site/QueryFeedback";
 import { ArrowUpRight, MapPin } from "lucide-react";
+import { fetchProjects } from "@/utils/api";
 
 export const Route = createFileRoute("/projects/")({
+  loader: () => fetchProjects(),
   head: () => ({
     meta: [
       { title: "Projects — Veershree Realty" },
@@ -16,6 +18,8 @@ export const Route = createFileRoute("/projects/")({
 });
 
 function ProjectsPage() {
+  const projects = Route.useLoaderData();
+
   return (
     <>
       <section className="pt-40 pb-16 bg-sand">
@@ -32,7 +36,10 @@ function ProjectsPage() {
 
       <section className="py-20 bg-cream">
         <div className="max-w-7xl mx-auto px-6 lg:px-10 grid gap-16">
-          {projects.map((p, i) => (
+          {projects.length === 0 ? (
+            <QueryEmpty title="No projects available" description="Our portfolio is being updated. Please check back soon." />
+          ) : (
+            projects.map((p, i) => (
             <article key={p.id} className={`grid lg:grid-cols-2 gap-10 items-center ${i % 2 ? "lg:[&>*:first-child]:order-2" : ""}`}>
               <div className="aspect-[4/3] overflow-hidden shadow-card group">
                 <img src={p.image} alt={p.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" width={1200} height={900} loading="lazy" />
@@ -62,7 +69,7 @@ function ProjectsPage() {
                   </div>
                 </div>
                 <div className="mt-8 flex gap-4">
-                  <Link to="/projects/$id" params={{ id: p.id }} className="bg-coffee-deep text-cream px-6 py-3 text-[11px] tracking-[0.3em] uppercase hover:bg-coffee transition flex items-center gap-2">
+                  <Link to="/projects/$slug" params={{ slug: p.slug }} className="bg-coffee-deep text-cream px-6 py-3 text-[11px] tracking-[0.3em] uppercase hover:bg-coffee transition flex items-center gap-2">
                     View Details <ArrowUpRight size={12} />
                   </Link>
                   <a href="#enquire" className="px-6 py-3 text-[11px] tracking-[0.3em] uppercase border border-coffee-deep text-coffee-deep hover:bg-coffee-deep hover:text-cream transition">
@@ -71,7 +78,8 @@ function ProjectsPage() {
                 </div>
               </div>
             </article>
-          ))}
+            ))
+          )}
         </div>
       </section>
 

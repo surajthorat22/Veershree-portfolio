@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { toast } from "sonner";
+import { getErrorMessage } from "@/utils/api-error";
+import { apiClient } from "@/utils/ts-rest";
 
 type Variant = "inline" | "card" | "compact";
 
 export function EnquiryForm({ variant = "card", id }: { variant?: Variant; id?: string }) {
   const [submitting, setSubmitting] = useState(false);
 
-  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
     const data = new FormData(form);
@@ -15,23 +17,25 @@ export function EnquiryForm({ variant = "card", id }: { variant?: Variant; id?: 
       toast.error("Please enter a valid mobile number");
       return;
     }
+
     setSubmitting(true);
-    // Persist to localStorage as a stand-in for backend
-    const entry = {
-      id: crypto.randomUUID(),
-      name: String(data.get("name") || ""),
-      mobile,
-      location: String(data.get("location") || ""),
-      message: String(data.get("message") || ""),
-      createdAt: new Date().toISOString(),
-    };
-    const prev = JSON.parse(localStorage.getItem("tn_leads") || "[]");
-    localStorage.setItem("tn_leads", JSON.stringify([entry, ...prev]));
-    setTimeout(() => {
-      setSubmitting(false);
-      form.reset();
-      toast.success("Thank you. Our advisor will call you shortly.");
-    }, 600);
+    const response = await apiClient.createLead({
+      body: {
+        name: String(data.get("name") || "").trim() || undefined,
+        mobile,
+        location: String(data.get("location") || "").trim() || undefined,
+        message: String(data.get("message") || "").trim() || undefined,
+      },
+    });
+    setSubmitting(false);
+
+    if (response.status !== 200 && response.status !== 201) {
+      toast.error(getErrorMessage("Enquiry failed"));
+      return;
+    }
+
+    form.reset();
+    toast.success("Thank you. Our advisor will call you shortly.");
   }
 
   if (variant === "compact") {

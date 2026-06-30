@@ -1,0 +1,19 @@
+meta {
+  name: Delete Project
+  type: http
+  seq: 5
+}
+
+delete {
+  url: {{baseUrl}}/projects/:slug
+  body: none
+  auth: none
+}
+
+params:path {
+  slug: {{projectSlug}}
+}
+
+headers {
+  Authorization: Bearer {{adminToken}}
+}

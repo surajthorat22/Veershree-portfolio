@@ -1,13 +1,15 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { projects } from "@/data/projects";
 import { EnquiryForm } from "@/components/site/EnquiryForm";
 import { ArrowLeft, MapPin } from "lucide-react";
+import { getErrorMessage } from "@/utils/api-error";
+import { apiClient } from "@/utils/ts-rest";
 
-export const Route = createFileRoute("/projects/$id")({
-  loader: ({ params }) => {
-    const project = projects.find((p) => p.id === params.id);
-    if (!project) throw notFound();
-    return { project };
+export const Route = createFileRoute("/projects/$slug")({
+  loader: async ({ params }) => {
+    const response = await apiClient.getProject({ params: { slug: params.slug } });
+    if (response.status === 404) throw notFound();
+    if (response.status !== 200) throw new Error(getErrorMessage(response.body));
+    return { project: response.body };
   },
   head: ({ loaderData }) => ({
     meta: loaderData

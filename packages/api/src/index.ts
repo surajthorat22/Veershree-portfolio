@@ -58,6 +58,21 @@ const dashboard = z.object({
   recentProjects: z.array(project),
 });
 
+const authUser = z.object({
+  id: z.string(),
+  username: z.string(),
+});
+
+const loginBody = z.object({
+  username: z.string().trim().min(1),
+  password: z.string().min(1),
+});
+
+const loginResponse = z.object({
+  token: z.string(),
+  user: authUser,
+});
+
 export const contract = c.router({
   healthCheck: {
     method: "GET",
@@ -136,6 +151,25 @@ export const contract = c.router({
       404: z.object({ message: z.string() }),
     },
   },
+  login: {
+    method: "POST",
+    path: "/auth/login",
+    body: loginBody,
+    responses: {
+      200: loginResponse,
+      401: z.object({ message: z.string() }),
+    },
+  },
 });
 
 export type AppContract = typeof contract;
+
+export type ProjectStatus = z.infer<typeof projectStatus>;
+export type Project = z.infer<typeof project>;
+export type UpsertProject = z.infer<typeof upsertProject>;
+export type Enquiry = z.infer<typeof enquiry>;
+export type CreateEnquiry = z.infer<typeof createEnquiry>;
+export type Dashboard = z.infer<typeof dashboard>;
+export type AuthUser = z.infer<typeof authUser>;
+export type LoginBody = z.infer<typeof loginBody>;
+export type LoginResponse = z.infer<typeof loginResponse>;

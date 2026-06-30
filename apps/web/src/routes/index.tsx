@@ -2,22 +2,26 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import heroImg from "@/assets/hero-aerial.jpg";
 import topo from "@/assets/topo-pattern.jpg";
 import { EnquiryForm } from "@/components/site/EnquiryForm";
-import { projects } from "@/data/projects";
+import { QueryEmpty } from "@/components/site/QueryFeedback";
 import { ArrowUpRight, ShieldCheck, Trees, TrendingUp, MapPin, Quote } from "lucide-react";
+import { fetchProjects } from "@/utils/api";
 
 export const Route = createFileRoute("/")({
+  loader: () => fetchProjects(),
   head: () => ({
     meta: [
       { title: "Veershree Realty — Premium Land Investments in India" },
       { name: "description", content: "Curated premium land plots in India's most strategic corridors. Clear titles, gated communities, generational value." },
       { property: "og:title", content: "Veershree Realty — Invest in Land, Inherit a Legacy" },
-      { property: "og:description", content: "Hand-picked plots in growth corridors. Trusted by 2,400+ investors." },
+      { property: "og:description", content: "Hand-picked plots in India's most strategic growth corridors." },
     ],
   }),
   component: HomePage,
 });
 
 function HomePage() {
+  const projects = Route.useLoaderData();
+
   return (
     <>
       {/* HERO */}
@@ -56,7 +60,7 @@ function HomePage() {
           <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-3xl border-t border-coffee/20 pt-10">
             {[
               { k: "14", v: "Years Curating Land" },
-              { k: "32", v: "Premium Projects" },
+              { k: String(projects.length), v: "Premium Projects" },
               { k: "2,400+", v: "Investors Served" },
               { k: "100%", v: "Clear Titles" },
             ].map((s) => (
@@ -95,38 +99,42 @@ function HomePage() {
             </Link>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((p, i) => (
-              <article key={p.id} className="group bg-card shadow-card overflow-hidden hover:shadow-soft transition-all duration-500" style={{ animationDelay: `${i * 100}ms` }}>
-                <div className="aspect-[4/3] overflow-hidden relative">
-                  <img src={p.image} alt={p.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" width={1200} height={900} loading="lazy" />
-                  <div className="absolute top-4 left-4 bg-cream/90 backdrop-blur px-3 py-1 text-[10px] tracking-[0.25em] uppercase text-coffee-deep">
-                    {p.status}
-                  </div>
-                </div>
-                <div className="p-7">
-                  <div className="flex items-center gap-2 text-[11px] tracking-[0.25em] uppercase text-coffee/70">
-                    <MapPin size={12} /> {p.location}
-                  </div>
-                  <h3 className="font-serif text-2xl text-coffee-deep mt-3">{p.name}</h3>
-                  <p className="mt-2 text-sm text-coffee leading-relaxed">{p.tagline}</p>
-                  <div className="mt-5 flex justify-between items-end pt-5 border-t border-border">
-                    <div>
-                      <div className="eyebrow">From</div>
-                      <div className="font-serif text-xl text-coffee-deep">{p.priceFrom}</div>
+          {projects.length === 0 ? (
+            <QueryEmpty title="No projects yet" description="Check back soon for our latest land offerings." />
+          ) : (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {projects.map((p, i) => (
+                <article key={p.id} className="group bg-card shadow-card overflow-hidden hover:shadow-soft transition-all duration-500" style={{ animationDelay: `${i * 100}ms` }}>
+                  <div className="aspect-[4/3] overflow-hidden relative">
+                    <img src={p.image} alt={p.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" width={1200} height={900} loading="lazy" />
+                    <div className="absolute top-4 left-4 bg-cream/90 backdrop-blur px-3 py-1 text-[10px] tracking-[0.25em] uppercase text-coffee-deep">
+                      {p.status}
                     </div>
-                    <Link
-                      to="/projects/$id"
-                      params={{ id: p.id }}
-                      className="text-[11px] tracking-[0.3em] uppercase text-coffee-deep hover:text-gold flex items-center gap-1.5"
-                    >
-                      Details <ArrowUpRight size={12} />
-                    </Link>
                   </div>
-                </div>
-              </article>
-            ))}
-          </div>
+                  <div className="p-7">
+                    <div className="flex items-center gap-2 text-[11px] tracking-[0.25em] uppercase text-coffee/70">
+                      <MapPin size={12} /> {p.location}
+                    </div>
+                    <h3 className="font-serif text-2xl text-coffee-deep mt-3">{p.name}</h3>
+                    <p className="mt-2 text-sm text-coffee leading-relaxed">{p.tagline}</p>
+                    <div className="mt-5 flex justify-between items-end pt-5 border-t border-border">
+                      <div>
+                        <div className="eyebrow">From</div>
+                        <div className="font-serif text-xl text-coffee-deep">{p.priceFrom}</div>
+                      </div>
+                      <Link
+                        to="/projects/$slug"
+                        params={{ slug: p.slug }}
+                        className="text-[11px] tracking-[0.3em] uppercase text-coffee-deep hover:text-gold flex items-center gap-1.5"
+                      >
+                        Details <ArrowUpRight size={12} />
+                      </Link>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 

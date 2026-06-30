@@ -1,46 +1,51 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { createFileRoute, useRouter } from "@tanstack/react-router";
+import { useState } from "react";
 import { Download, Trash2, Mail, Phone } from "lucide-react";
 import { toast } from "sonner";
-
-type Lead = {
-  id: string;
-  name: string;
-  mobile: string;
-  location: string;
-  message: string;
-  createdAt: string;
-};
+import type { Enquiry } from "@Veershree-portfolio/api/index";
+import { getErrorMessage } from "@/utils/api-error";
+import { fetchLeads } from "@/utils/api";
+import { adminHeaders, apiClient } from "@/utils/ts-rest";
 
 export const Route = createFileRoute("/admin/leads")({
+  loader: () => fetchLeads(),
   component: LeadsAdmin,
 });
 
 function LeadsAdmin() {
-  const [leads, setLeads] = useState<Lead[]>([]);
+  const router = useRouter();
+  const leads = Route.useLoaderData();
+  const [deletingId, setDeletingId] = useState<string | null>(null);
 
-  useEffect(() => {
-    setLeads(JSON.parse(localStorage.getItem("tn_leads") || "[]"));
-  }, []);
-
-  function remove(id: string) {
+  async function remove(id: string) {
     if (!confirm("Delete this enquiry?")) return;
-    const next = leads.filter((l) => l.id !== id);
-    setLeads(next);
-    localStorage.setItem("tn_leads", JSON.stringify(next));
+    setDeletingId(id);
+    const response = await apiClient.deleteLead({ params: { id }, extraHeaders: adminHeaders() });
+    setDeletingId(null);
+    if (response.status !== 200) {
+      toast.error(getErrorMessage("Enquiry deletion failed"));
+      return;
+    }
+    toast.success("Enquiry deleted");
+    router.invalidate();
   }
 
-  function exportCSV() {
-    if (leads.length === 0) { toast.error("No enquiries to export"); return; }
+  function exportCSV(items: Enquiry[]) {
+    if (items.length === 0) {
+      toast.error("No enquiries to export");
+      return;
+    }
     const header = "Name,Mobile,Location,Message,Date";
-    const rows = leads.map((l) =>
-      [l.name, l.mobile, l.location, l.message, l.createdAt].map((v) => `"${String(v).replace(/"/g, '""')}"`).join(",")
+    const rows = items.map((l) =>
+      [l.name, l.mobile, l.location, l.message, l.createdAt].map((v) => `"${String(v).replace(/"/g, '""')}"`).join(","),
     );
     const csv = [header, ...rows].join("\n");
     const blob = new Blob([csv], { type: "text/csv" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
-    a.href = url; a.download = `veershree-realty-leads-${Date.now()}.csv`; a.click();
+    a.href = url;
+    a.download = `veershree-realty-leads-${Date.now()}.csv`;
+    a.click();
     URL.revokeObjectURL(url);
     toast.success("Exported to CSV");
   }
@@ -53,7 +58,11 @@ function LeadsAdmin() {
           <h1 className="font-serif text-4xl text-coffee-deep">Enquiries</h1>
           <p className="text-coffee mt-2">{leads.length} {leads.length === 1 ? "enquiry" : "enquiries"} captured</p>
         </div>
-        <button onClick={exportCSV} className="border border-coffee-deep text-coffee-deep px-5 py-3 text-[11px] tracking-[0.3em] uppercase hover:bg-coffee-deep hover:text-cream transition flex items-center gap-2">
+        <button
+          onClick={() => exportCSV(leads)}
+          disabled={leads.length === 0}
+          className="border border-coffee-deep text-coffee-deep px-5 py-3 text-[11px] tracking-[0.3em] uppercase hover:bg-coffee-deep hover:text-cream transition flex items-center gap-2 disabled:opacity-50"
+        >
           <Download size={14} /> Export CSV
         </button>
       </div>
@@ -81,7 +90,13 @@ function LeadsAdmin() {
               </div>
               <div className="flex md:flex-col gap-2 justify-end">
                 <a href={`https://wa.me/${l.mobile.replace(/\D/g, "")}`} target="_blank" rel="noreferrer" className="px-4 py-2 bg-coffee-deep text-cream text-[10px] tracking-[0.3em] uppercase hover:bg-coffee">WhatsApp</a>
-                <button onClick={() => remove(l.id)} className="p-2 text-coffee hover:text-destructive self-end"><Trash2 size={15} /></button>
+                <button
+                  onClick={() => remove(l.id)}
+                  disabled={deletingId === l.id}
+                  className="p-2 text-coffee hover:text-destructive self-end disabled:opacity-50"
+                >
+                  <Trash2 size={15} />
+                </button>
               </div>
             </div>
           ))}
