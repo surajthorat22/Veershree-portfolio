@@ -1,0 +1,20 @@
+meta {
+  name: Create Lead
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/leads
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "John Doe",
+    "mobile": "9876543210",
+    "location": "Pune",
+    "message": "Interested in Green Valley Estate"
+  }
+}

@@ -1,24 +1,20 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
-import { projects } from "@/data/projects";
 import { ArrowUpRight, FolderKanban, Inbox, Eye, TrendingUp } from "lucide-react";
+import { fetchDashboard } from "@/utils/api";
 
 export const Route = createFileRoute("/admin/")({
+  loader: () => fetchDashboard(),
   component: Dashboard,
 });
 
 function Dashboard() {
-  const [leadCount, setLeadCount] = useState(0);
-  useEffect(() => {
-    const leads = JSON.parse(localStorage.getItem("tn_leads") || "[]");
-    setLeadCount(leads.length);
-  }, []);
+  const dashboard = Route.useLoaderData();
 
   const stats = [
-    { label: "Total Projects", value: String(projects.length), Icon: FolderKanban, link: "/admin/projects" },
-    { label: "New Enquiries", value: String(leadCount), Icon: Inbox, link: "/admin/leads" },
-    { label: "Visitors (7d)", value: "1,284", Icon: Eye, link: "/admin/analytics" },
-    { label: "Conversion", value: "4.6%", Icon: TrendingUp, link: "/admin/analytics" },
+    { label: "Total Projects", value: String(dashboard.totalProjects), Icon: FolderKanban, link: "/admin/projects" },
+    { label: "New Enquiries", value: String(dashboard.totalEnquiries), Icon: Inbox, link: "/admin/leads" },
+    { label: "Visitors (7d)", value: dashboard.visitors7d.toLocaleString(), Icon: Eye, link: "/admin/analytics" },
+    { label: "Conversion", value: `${dashboard.conversionRate}%`, Icon: TrendingUp, link: "/admin/analytics" },
   ] as const;
 
   return (
@@ -46,18 +42,22 @@ function Dashboard() {
             <h2 className="font-serif text-2xl text-coffee-deep">Recent Projects</h2>
             <Link to="/admin/projects" className="text-[11px] tracking-[0.3em] uppercase text-coffee hover:text-gold">Manage</Link>
           </div>
-          <div className="divide-y divide-border">
-            {projects.map((p) => (
-              <div key={p.id} className="py-4 flex items-center gap-4">
-                <img src={p.image} alt="" className="w-16 h-16 object-cover" />
-                <div className="flex-1">
-                  <div className="font-serif text-lg text-coffee-deep">{p.name}</div>
-                  <div className="eyebrow">{p.location}</div>
+          {dashboard.recentProjects.length === 0 ? (
+            <p className="text-coffee/60 text-sm">No projects yet.</p>
+          ) : (
+            <div className="divide-y divide-border">
+              {dashboard.recentProjects.map((p) => (
+                <div key={p.id} className="py-4 flex items-center gap-4">
+                  {p.image && <img src={p.image} alt="" className="w-16 h-16 object-cover" />}
+                  <div className="flex-1">
+                    <div className="font-serif text-lg text-coffee-deep">{p.name}</div>
+                    <div className="eyebrow">{p.location}</div>
+                  </div>
+                  <span className="text-xs px-2 py-1 bg-sand text-coffee-deep">{p.status}</span>
                 </div>
-                <span className="text-xs px-2 py-1 bg-sand text-coffee-deep">{p.status}</span>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
 
         <div className="bg-coffee-deep text-cream p-8">

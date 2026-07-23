@@ -10,8 +10,8 @@ export const env = createEnv({
       .default("mongodb://localhost:27017/terra-noble"),
     CORS_ORIGIN: z.url().default("http://localhost:5173"),
     NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
-    // Protect write endpoints (POST/PUT/DELETE). If unset, writes are allowed (dev-friendly).
-    ADMIN_TOKEN: z.string().min(1).optional(),
+    JWT_SECRET: z.string().min(16).default("dev-jwt-secret-change-in-production"),
+    ADMIN_SEED_PASSWORD: z.string().min(6).default("Veershree@123"),
   },
   runtimeEnv: process.env,
   emptyStringAsUndefined: true,

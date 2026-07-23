@@ -1,0 +1,42 @@
+meta {
+  name: Create Project
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/projects
+  body: json
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{adminToken}}
+}
+
+body:json {
+  {
+    "slug": "green-valley-estate",
+    "name": "Green Valley Estate",
+    "location": "Pune, Maharashtra",
+    "tagline": "Premium living surrounded by nature",
+    "description": "A thoughtfully planned residential community with modern amenities.",
+    "features": [
+      "Clubhouse",
+      "Swimming Pool",
+      "24/7 Security"
+    ],
+    "image": "",
+    "priceFrom": "45 Lakhs",
+    "size": "1200 sq.ft",
+    "status": "Open"
+  }
+}
+
+body:file {
+  file: @file(/home/surajthorat22/Downloads/123.jpg) @contentType(image/jpeg)
+}
+
+vars:pre-request {
+  baseUrl: http://localhost:3000/rest
+}
