@@ -213,7 +213,7 @@ function HomePage() {
           <div className="aspect-[16/8] w-full overflow-hidden shadow-soft border border-border">
             <iframe
               title="Project locations"
-              src="https://www.google.com/maps?q=chakan+Waki Kh.+Kharabwadi+Kurli+Nanekarwadi+Khalumbre+Mahalunge+pune+maharashtra&output=embed&z=13"
+              src="https://www.google.com/maps?q=chakan+pune+maharashtra&output=embed&z=13"
               className="w-full h-full"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"

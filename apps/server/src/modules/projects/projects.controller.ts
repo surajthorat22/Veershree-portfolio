@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Inject, Param, Post, Put, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpCode, Inject, Param, Post, Put, UseGuards } from "@nestjs/common";
 
 import { AdminAuthGuard } from "../../guards/admin-auth.guard";
 import type { UpsertProjectDto } from "./projects.dto";
@@ -9,29 +9,29 @@ import type { ProjectDto } from "./projects.types";
 export class ProjectsController {
   constructor(@Inject(ProjectsService) private readonly projects: ProjectsService) {}
 
-  @Get()
+  @Get() @HttpCode(200)
   async list(): Promise<ProjectDto[]> {
     return await this.projects.list();
   }
 
-  @Get(":slug")
+  @Get(":slug") @HttpCode(200)
   async get(@Param("slug") slug: string): Promise<ProjectDto> {
     return await this.projects.getBySlug(slug);
   }
 
-  @Post()
+  @Post() @HttpCode(201)
   @UseGuards(AdminAuthGuard)
   async create(@Body() body: UpsertProjectDto): Promise<ProjectDto> {
     return await this.projects.upsert(body);
   }
 
-  @Put(":slug")
+  @Put(":slug") @HttpCode(200)
   @UseGuards(AdminAuthGuard)
   async update(@Param("slug") slug: string, @Body() body: UpsertProjectDto): Promise<ProjectDto> {
     return await this.projects.upsert({ ...body, slug });
   }
 
-  @Delete(":slug")
+  @Delete(":slug") @HttpCode(200)
   @UseGuards(AdminAuthGuard)
   async remove(@Param("slug") slug: string): Promise<{ ok: true }> {
     await this.projects.deleteBySlug(slug);

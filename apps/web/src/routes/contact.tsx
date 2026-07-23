@@ -30,9 +30,9 @@ function ContactPage() {
         <div className="max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-5 gap-12">
           <div className="lg:col-span-2 space-y-10">
             {[
-              { Icon: Phone, t: "Direct Line", d: "+91 98450 00000", href: "tel:+919845000000" },
-              { Icon: MessageCircle, t: "WhatsApp", d: "Chat with an advisor", href: "https://wa.me/919845000000" },
-              { Icon: Mail, t: "Email", d: "hello@terranoble.in", href: "mailto:hello@terranoble.in" },
+              { Icon: Phone, t: "Direct Line", d: "+91 78755 81414", href: "tel:+917875581414" },
+              { Icon: MessageCircle, t: "WhatsApp", d: "Chat with an advisor", href: "https://wa.me/917875581414" },
+              { Icon: Mail, t: "Email", d: "info@veershreerealty.com", href: "mailto:info@veershreerealty.com" },
               { Icon: MapPin, t: "The Studio", d: "12th Floor, UB City, Bengaluru 560001", href: "#map" },
             ].map(({ Icon, t, d, href }) => (
               <a key={t} href={href} className="flex gap-5 group border-t border-border pt-6">
@@ -55,9 +55,10 @@ function ContactPage() {
           <div className="aspect-[16/8] w-full overflow-hidden shadow-soft border border-border">
             <iframe
               title="Studio location"
-              src="https://www.google.com/maps?q=UB+City+Bengaluru&output=embed"
+              src="https://www.google.com/maps?q=chakan+pune+maharashtra&output=embed&z=13"
               className="w-full h-full"
               loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
             />
           </div>
         </div>
