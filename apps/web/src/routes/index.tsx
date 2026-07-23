@@ -265,7 +265,7 @@ function HomePage() {
             <div className="mt-10 flex items-center gap-6">
               <div>
                 <div className="eyebrow text-gold">Direct line</div>
-                <div className="font-serif text-2xl text-cream mt-1">+91 98450 00000</div>
+                <div className="font-serif text-2xl text-cream mt-1">+91 78755 81414</div>
               </div>
             </div>
           </div>

@@ -29,9 +29,9 @@ export function SiteFooter() {
         <div>
           <div className="eyebrow text-gold mb-5">Reach Us</div>
           <ul className="space-y-3 text-sm">
-            <li>+91 98450 00000</li>
-            <li>hello@veershreerealty.in</li>
-            <li>UB City, Bengaluru</li>
+            <li>+91 78755 81414</li>
+            <li>info@veershreerealty.com</li>
+            <li>Chakan, Pune</li>
           </ul>
         </div>
       </div>
