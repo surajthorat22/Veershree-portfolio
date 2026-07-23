@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Inject, Param, Post, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpCode, Inject, Param, Post, UseGuards } from "@nestjs/common";
 
 import { AdminAuthGuard } from "../../guards/admin-auth.guard";
 import type { CreateEnquiryDto } from "./enquiries.dto";
@@ -9,18 +9,18 @@ import type { EnquiryDto } from "./enquiries.types";
 export class EnquiriesController {
   constructor(@Inject(EnquiriesService) private readonly enquiries: EnquiriesService) {}
 
-  @Get()
+  @Get() @HttpCode(200)
   @UseGuards(AdminAuthGuard)
   async list(): Promise<EnquiryDto[]> {
     return await this.enquiries.list();
   }
 
-  @Post()
+  @Post() @HttpCode(201)
   async create(@Body() body: CreateEnquiryDto): Promise<EnquiryDto> {
     return await this.enquiries.create(body);
   }
 
-  @Delete(":id")
+  @Delete(":id") @HttpCode(200)
   @UseGuards(AdminAuthGuard)
   async remove(@Param("id") id: string): Promise<{ ok: true }> {
     await this.enquiries.deleteById(id);

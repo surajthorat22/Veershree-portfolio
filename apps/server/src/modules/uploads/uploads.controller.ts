@@ -1,6 +1,7 @@
 import {
   BadRequestException,
   Controller,
+  HttpCode,
   Inject,
   Post,
   UploadedFile,
@@ -20,7 +21,7 @@ const MAX_SIZE = 5 * 1024 * 1024;
 export class UploadsController {
   constructor(@Inject(UploadsService) private readonly uploads: UploadsService) {}
 
-  @Post("image")
+  @Post("image") @HttpCode(200)
   @UseInterceptors(
     FileInterceptor("file", {
       storage: memoryStorage(),
