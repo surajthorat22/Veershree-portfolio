@@ -5,5 +5,8 @@ export default defineConfig({
   format: "esm",
   outDir: "./dist",
   clean: true,
-  noExternal: [/@Veershree-portfolio\/.*/],
+  // Bundle workspace packages so the production image only needs dist/ + engines.
+  deps: {
+    alwaysBundle: [/@Veershree-portfolio\/.*/],
+  },
 });

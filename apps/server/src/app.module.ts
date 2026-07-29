@@ -2,6 +2,7 @@ import { Module } from "@nestjs/common";
 
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
+import { AnalyticsModule } from "./modules/analytics/analytics.module";
 import { AuthModule } from "./modules/auth/auth.module";
 import { DashboardModule } from "./modules/dashboard/dashboard.module";
 import { EnquiriesModule } from "./modules/enquiries/enquiries.module";
@@ -10,7 +11,15 @@ import { ProjectsModule } from "./modules/projects/projects.module";
 import { UploadsModule } from "./modules/uploads/uploads.module";
 
 @Module({
-  imports: [PrismaModule, AuthModule, ProjectsModule, EnquiriesModule, DashboardModule, UploadsModule],
+  imports: [
+    PrismaModule,
+    AuthModule,
+    ProjectsModule,
+    EnquiriesModule,
+    AnalyticsModule,
+    DashboardModule,
+    UploadsModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

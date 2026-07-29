@@ -6,7 +6,7 @@ export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
       { title: "Contact — Veershree Realty" },
-      { name: "description", content: "Speak with our investment advisors. Visit our Bengaluru studio or reach us by phone." },
+      { name: "description", content: "Speak with our investment advisors. Visit our Pune Office or reach us by phone." },
       { property: "og:title", content: "Contact Veershree Realty" },
       { property: "og:description", content: "Quiet, considered conversations about land." },
     ],
@@ -33,7 +33,7 @@ function ContactPage() {
               { Icon: Phone, t: "Direct Line", d: "+91 78755 81414", href: "tel:+917875581414" },
               { Icon: MessageCircle, t: "WhatsApp", d: "Chat with an advisor", href: "https://wa.me/917875581414" },
               { Icon: Mail, t: "Email", d: "info@veershreerealty.com", href: "mailto:info@veershreerealty.com" },
-              { Icon: MapPin, t: "The Studio", d: "12th Floor, UB City, Bengaluru 560001", href: "#map" },
+              { Icon: MapPin, t: "The Office", d: "Chakan, Pune, Maharashtra 410501", href: "#map" },
             ].map(({ Icon, t, d, href }) => (
               <a key={t} href={href} className="flex gap-5 group border-t border-border pt-6">
                 <Icon className="text-gold mt-1" size={22} strokeWidth={1.4} />
@@ -54,7 +54,7 @@ function ContactPage() {
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
           <div className="aspect-[16/8] w-full overflow-hidden shadow-soft border border-border">
             <iframe
-              title="Studio location"
+              title="Office location"
               src="https://www.google.com/maps?q=chakan+pune+maharashtra&output=embed&z=13"
               className="w-full h-full"
               loading="lazy"

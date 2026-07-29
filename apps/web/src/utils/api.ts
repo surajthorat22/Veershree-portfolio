@@ -13,6 +13,12 @@ export async function fetchDashboard() {
   return response.body;
 }
 
+export async function fetchAnalytics() {
+  const response = await apiClient.getAnalytics({ extraHeaders: adminHeaders() });
+  if (response.status !== 200) throw new Error(getErrorMessage(response.body));
+  return response.body;
+}
+
 export async function fetchLeads() {
   const response = await apiClient.listLeads({ extraHeaders: adminHeaders() });
   if (response.status !== 200) throw new Error(getErrorMessage(response.body));

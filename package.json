@@ -17,7 +17,9 @@
     "db:push": "turbo -F @Veershree-portfolio/db db:push",
     "db:studio": "turbo -F @Veershree-portfolio/db db:studio",
     "db:generate": "turbo -F @Veershree-portfolio/db db:generate",
-    "db:migrate": "turbo -F @Veershree-portfolio/db db:migrate"
+    "db:migrate": "turbo -F @Veershree-portfolio/db db:migrate",
+    "docker:api": "docker compose up --build",
+    "docker:api:build": "docker build -f apps/server/Dockerfile -t veershree-api ."
   },
   "dependencies": {
     "@Veershree-portfolio/env": "workspace:*",

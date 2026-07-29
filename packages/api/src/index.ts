@@ -58,6 +58,37 @@ const dashboard = z.object({
   recentProjects: z.array(project),
 });
 
+const trackPageView = z.object({
+  path: z.string().trim().min(1).max(500),
+  visitorId: z.string().trim().min(1).max(128),
+  referrer: z.string().max(1000).optional(),
+});
+
+const analyticsDay = z.object({
+  date: z.string(),
+  views: z.number().int().nonnegative(),
+  visitors: z.number().int().nonnegative(),
+});
+
+const analyticsTopPage = z.object({
+  path: z.string(),
+  views: z.number().int().nonnegative(),
+  visitors: z.number().int().nonnegative(),
+});
+
+const analytics = z.object({
+  visitorsToday: z.number().int().nonnegative(),
+  visitors7d: z.number().int().nonnegative(),
+  totalVisitors: z.number().int().nonnegative(),
+  pageViews7d: z.number().int().nonnegative(),
+  enquiries7d: z.number().int().nonnegative(),
+  totalEnquiries: z.number().int().nonnegative(),
+  totalProjects: z.number().int().nonnegative(),
+  conversionRate: z.number().nonnegative(),
+  viewsByDay: z.array(analyticsDay),
+  topPages: z.array(analyticsTopPage),
+});
+
 const authUser = z.object({
   id: z.string(),
   username: z.string(),
@@ -86,6 +117,21 @@ export const contract = c.router({
     path: "/admin/dashboard",
     responses: {
       200: dashboard,
+    },
+  },
+  getAnalytics: {
+    method: "GET",
+    path: "/admin/analytics",
+    responses: {
+      200: analytics,
+    },
+  },
+  trackPageView: {
+    method: "POST",
+    path: "/analytics/pageview",
+    body: trackPageView,
+    responses: {
+      200: z.object({ ok: z.literal(true) }),
     },
   },
   listProjects: {
@@ -170,6 +216,10 @@ export type UpsertProject = z.infer<typeof upsertProject>;
 export type Enquiry = z.infer<typeof enquiry>;
 export type CreateEnquiry = z.infer<typeof createEnquiry>;
 export type Dashboard = z.infer<typeof dashboard>;
+export type TrackPageView = z.infer<typeof trackPageView>;
+export type Analytics = z.infer<typeof analytics>;
+export type AnalyticsDay = z.infer<typeof analyticsDay>;
+export type AnalyticsTopPage = z.infer<typeof analyticsTopPage>;
 export type AuthUser = z.infer<typeof authUser>;
 export type LoginBody = z.infer<typeof loginBody>;
 export type LoginResponse = z.infer<typeof loginResponse>;

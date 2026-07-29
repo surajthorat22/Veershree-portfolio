@@ -79,7 +79,7 @@ export function EnquiryForm({ variant = "card", id }: { variant?: Variant; id?: 
       <div className="grid gap-3">
         <input name="name" required placeholder="Full name" className="px-4 py-3 bg-cream border border-border text-sm outline-none focus:border-gold" />
         <input name="mobile" required placeholder="Mobile number" className="px-4 py-3 bg-cream border border-border text-sm outline-none focus:border-gold" />
-        <input name="location" placeholder="Preferred location (e.g. Bengaluru)" className="px-4 py-3 bg-cream border border-border text-sm outline-none focus:border-gold" />
+        <input name="location" placeholder="Preferred location (e.g. Pune)" className="px-4 py-3 bg-cream border border-border text-sm outline-none focus:border-gold" />
         <textarea name="message" rows={3} placeholder="Tell us what you're looking for (optional)" className="px-4 py-3 bg-cream border border-border text-sm outline-none focus:border-gold resize-none" />
         <button disabled={submitting} className="bg-coffee-deep text-cream px-6 py-4 text-xs tracking-[0.35em] uppercase hover:bg-coffee transition disabled:opacity-60 mt-2">
           {submitting ? "Sending..." : "Request a Callback"}
