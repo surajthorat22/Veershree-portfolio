@@ -8,17 +8,11 @@ services:
     region: oregon
     healthCheckPath: /rest/health
     autoDeploy: true
-    disk:
-      name: veershree-uploads
-      mountPath: /var/data/uploads
-      sizeGB: 1
     envVars:
       - key: NODE_ENV
         value: production
       - key: PORT
         value: "3000"
-      - key: UPLOAD_DIR
-        value: /var/data/uploads
       - key: DATABASE_URL
         sync: false
       - key: CORS_ORIGIN
@@ -27,6 +21,14 @@ services:
         generateValue: true
       - key: ADMIN_SEED_PASSWORD
         sync: false
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false
+      - key: CLOUDINARY_API_KEY
+        sync: false
+      - key: CLOUDINARY_API_SECRET
+        sync: false
+      - key: CLOUDINARY_FOLDER
+        value: veershree
       - key: SMTP_HOST
         sync: false
       - key: SMTP_PORT

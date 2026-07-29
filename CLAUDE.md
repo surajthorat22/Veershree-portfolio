@@ -31,6 +31,7 @@ This file provides context about the project for AI assistants.
 ### Additional Features
 
 - Email: nodemailer
+- Image uploads: Cloudinary
 
 ## Project Structure
 

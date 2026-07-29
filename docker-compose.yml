@@ -11,13 +11,10 @@ services:
     environment:
       NODE_ENV: production
       PORT: "3000"
-      UPLOAD_DIR: /var/data/uploads
       # Override weak local defaults when testing the image
       JWT_SECRET: ${JWT_SECRET:-local-docker-jwt-secret-change-me-32chars}
       ADMIN_SEED_PASSWORD: ${ADMIN_SEED_PASSWORD:-ChangeMeLocal123!}
       CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost:5173}
-    volumes:
-      - veershree_uploads:/var/data/uploads
     restart: unless-stopped
     healthcheck:
       test:
@@ -31,6 +28,3 @@ services:
       timeout: 5s
       retries: 3
       start_period: 20s
-
-volumes:
-  veershree_uploads:
