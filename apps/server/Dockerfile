@@ -39,18 +39,14 @@ FROM base AS runner
 WORKDIR /app
 ENV NODE_ENV=production
 ENV PORT=3000
-ENV UPLOAD_DIR=/var/data/uploads
 
 RUN addgroup --system --gid 1001 nodejs \
-  && adduser --system --uid 1001 nestjs \
-  && mkdir -p /var/data/uploads \
-  && chown -R nestjs:nodejs /var/data/uploads
+  && adduser --system --uid 1001 nestjs
 
 COPY --from=build --chown=nestjs:nodejs /deploy ./
 
 USER nestjs
 EXPOSE 3000
-VOLUME ["/var/data/uploads"]
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
   CMD node -e "fetch('http://127.0.0.1:'+(process.env.PORT||3000)+'/rest/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"

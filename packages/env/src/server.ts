@@ -13,7 +13,10 @@ export const env = createEnv({
     PORT: z.coerce.number().int().positive().default(3000),
     JWT_SECRET: z.string().min(16).default("dev-jwt-secret-change-in-production"),
     ADMIN_SEED_PASSWORD: z.string().min(6).default("Veershree@123"),
-    UPLOAD_DIR: z.string().min(1).optional(),
+    CLOUDINARY_CLOUD_NAME: z.string().min(1).optional(),
+    CLOUDINARY_API_KEY: z.string().min(1).optional(),
+    CLOUDINARY_API_SECRET: z.string().min(1).optional(),
+    CLOUDINARY_FOLDER: z.string().min(1).default("veershree"),
   },
   runtimeEnv: process.env,
   emptyStringAsUndefined: true,
@@ -28,6 +31,6 @@ export function getCorsOrigins(): string[] | true {
     .filter(Boolean);
 }
 
-export function getUploadDir(): string {
-  return env.UPLOAD_DIR || `${process.cwd()}/uploads`;
+export function hasCloudinaryConfig(): boolean {
+  return Boolean(env.CLOUDINARY_CLOUD_NAME && env.CLOUDINARY_API_KEY && env.CLOUDINARY_API_SECRET);
 }

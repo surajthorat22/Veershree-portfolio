@@ -1,6 +1,5 @@
-import { env } from "@Veershree-portfolio/env/web";
-
 import { getErrorMessage } from "@/utils/api-error";
+import { env } from "@Veershree-portfolio/env/web";
 import { adminHeaders } from "@/utils/ts-rest";
 
 export async function uploadImage(file: File): Promise<string> {
@@ -19,5 +18,6 @@ export async function uploadImage(file: File): Promise<string> {
   }
 
   const data = (await response.json()) as { url: string };
-  return data.url.startsWith("http") ? data.url : `${env.VITE_SERVER_URL}${data.url}`;
+  if (!data.url) throw new Error("Image upload failed");
+  return data.url;
 }
