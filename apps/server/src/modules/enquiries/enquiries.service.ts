@@ -65,5 +65,11 @@ export class EnquiriesService {
   async countAll(): Promise<number> {
     return await this.prisma.client.enquiry.count();
   }
+
+  async countSince(since: Date): Promise<number> {
+    return await this.prisma.client.enquiry.count({
+      where: { createdAt: { gte: since } },
+    });
+  }
 }
 

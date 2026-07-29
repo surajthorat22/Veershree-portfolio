@@ -51,6 +51,11 @@ Veershree-portfolio/
 - `pnpm build` - Build for production
 - `pnpm db:push` - Push database schema
 - `pnpm db:studio` - Open database UI
+- `docker compose up --build` - Run API in Docker (production-like)
+
+## Deployment
+
+See `DEPLOY.md` for GitHub Pages (web) + Render Docker (API) setup.
 
 ## Maintenance
 

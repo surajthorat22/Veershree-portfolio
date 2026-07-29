@@ -3,6 +3,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { StickyContact } from "@/components/site/StickyContact";
+import { PageViewTracker } from "@/components/site/PageViewTracker";
 
 import appCss from "../styles.css?url";
 
@@ -67,6 +68,7 @@ function RootComponent() {
 
   return (
     <>
+      <PageViewTracker />
       <SiteHeader />
       <main>
         <Outlet />

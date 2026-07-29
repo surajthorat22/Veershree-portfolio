@@ -1,8 +1,9 @@
 generator client {
-  provider = "prisma-client"
-  output   = "../generated"
-  moduleFormat = "esm"
-  runtime = "nodejs"
+  provider      = "prisma-client"
+  output        = "../generated"
+  moduleFormat  = "esm"
+  runtime       = "nodejs"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
 }
 
 datasource db {
@@ -46,4 +47,17 @@ model AdminUser {
   username     String   @unique
   passwordHash String
   createdAt    DateTime @default(now())
+}
+
+model PageView {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  path      String
+  visitorId String
+  referrer  String?
+  userAgent String?
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([visitorId, createdAt])
+  @@index([path, createdAt])
 }

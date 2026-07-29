@@ -22,7 +22,7 @@ export function SiteFooter() {
             <li><Link to="/projects" className="hover:text-gold transition">Projects</Link></li>
             <li><Link to="/why-land" className="hover:text-gold transition">Why Land</Link></li>
             <li><Link to="/contact" className="hover:text-gold transition">Contact</Link></li>
-            <li><Link to="/admin" className="hover:text-gold transition">Admin</Link></li>
+            {/* <li><Link to="/admin" className="hover:text-gold transition">Admin</Link></li> */}
           </ul>
         </div>
 
