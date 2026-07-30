@@ -40,16 +40,23 @@ export function EnquiryForm({ variant = "card", id }: { variant?: Variant; id?: 
 
   if (variant === "compact") {
     return (
-      <form id={id} onSubmit={onSubmit} className="flex items-center gap-2 bg-card p-2 rounded-full shadow-soft border border-border max-w-md w-full">
+      <form
+        id={id}
+        onSubmit={onSubmit}
+        className="flex items-center gap-1.5 sm:gap-2 bg-card p-1.5 sm:p-2 rounded-full shadow-soft border border-border w-full min-w-0 max-w-md"
+      >
         <input
           name="mobile"
           required
+          inputMode="tel"
+          autoComplete="tel"
           placeholder="Your mobile number"
-          className="flex-1 px-4 py-2 bg-transparent text-sm outline-none text-coffee-deep placeholder:text-coffee/50"
+          className="min-w-0 flex-1 px-3 sm:px-4 py-2 bg-transparent text-sm outline-none text-coffee-deep placeholder:text-coffee/50"
         />
         <button
+          type="submit"
           disabled={submitting}
-          className="bg-coffee-deep text-cream px-5 py-2.5 rounded-full text-[11px] tracking-[0.3em] uppercase hover:bg-coffee transition disabled:opacity-60"
+          className="shrink-0 bg-coffee-deep text-cream px-3.5 sm:px-5 py-2.5 rounded-full text-[10px] sm:text-[11px] tracking-[0.14em] sm:tracking-[0.3em] uppercase hover:bg-coffee transition disabled:opacity-60"
         >
           {submitting ? "..." : "Enquire"}
         </button>
@@ -71,9 +78,9 @@ export function EnquiryForm({ variant = "card", id }: { variant?: Variant; id?: 
   }
 
   return (
-    <form id={id} onSubmit={onSubmit} className="bg-card p-8 lg:p-10 shadow-soft border border-border">
+    <form id={id} onSubmit={onSubmit} className="bg-card p-5 sm:p-8 lg:p-10 shadow-soft border border-border w-full min-w-0">
       <div className="eyebrow text-gold mb-3">Schedule a private call</div>
-      <h3 className="font-serif text-3xl text-coffee-deep mb-6 leading-tight">
+      <h3 className="font-serif text-2xl sm:text-3xl text-coffee-deep mb-6 leading-tight">
         Let our investment <em className="text-coffee">advisor</em> reach out.
       </h3>
       <div className="grid gap-3">

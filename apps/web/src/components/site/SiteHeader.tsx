@@ -29,11 +29,11 @@ export function SiteHeader() {
         scrolled ? "bg-cream/90 backdrop-blur-md border-b border-border" : "bg-transparent"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 lg:px-10 h-20 flex items-center justify-between">
-        <Link to="/" className="flex items-baseline gap-2">
-          <span className="font-serif text-2xl tracking-wide text-coffee-deep">Veershree</span>
-          <span className="text-gold text-lg">·</span>
-          <span className="font-serif text-2xl tracking-wide text-coffee-deep">Realty</span>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 h-16 sm:h-20 flex items-center justify-between gap-3 min-w-0">
+        <Link to="/" className="flex items-baseline gap-1.5 sm:gap-2 min-w-0 shrink">
+          <span className="font-serif text-xl sm:text-2xl tracking-wide text-coffee-deep truncate">Veershree</span>
+          <span className="text-gold text-base sm:text-lg shrink-0">·</span>
+          <span className="font-serif text-xl sm:text-2xl tracking-wide text-coffee-deep shrink-0">Realty</span>
         </Link>
 
         <nav className="hidden md:flex items-center gap-10">

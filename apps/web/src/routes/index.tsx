@@ -30,48 +30,50 @@ function HomePage() {
         ])}
       />
       {/* HERO */}
-      <section className="relative min-h-screen flex items-end overflow-hidden">
+      <section className="relative min-h-[100svh] flex items-end overflow-hidden">
         <div className="absolute inset-0">
           <img src={heroImg} alt="Aerial view of premium land plots" className="w-full h-full object-cover animate-ken-burns" width={1920} height={1200} />
           <div className="absolute inset-0 bg-gradient-to-t from-cream via-cream/30 to-cream/10" />
           <div className="absolute inset-0 bg-gradient-to-r from-cream/70 via-transparent to-transparent" />
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-6 lg:px-10 pb-20 pt-40 w-full">
-          <div className="max-w-2xl animate-fade-up">
-            <div className="eyebrow text-coffee-deep mb-6">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 pb-24 sm:pb-20 pt-28 sm:pt-40 w-full min-w-0 pr-14 sm:pr-6 lg:pr-10">
+          <div className="max-w-2xl w-full min-w-0 animate-fade-up">
+            <div className="eyebrow text-coffee-deep mb-4 sm:mb-6">
               <span className="gold-rule" />
               Est. 2010 · Premium Land
             </div>
-            <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl text-coffee-deep leading-[1.05] tracking-tight">
+            <h1 className="font-serif text-[2.15rem] leading-[1.1] sm:text-5xl sm:leading-[1.05] lg:text-7xl text-coffee-deep tracking-tight break-words">
               Invest in <em className="text-coffee italic">land</em>,<br />
               inherit a <em className="text-coffee italic">legacy</em>.
             </h1>
-            <p className="mt-6 text-base lg:text-lg text-coffee max-w-lg leading-relaxed">
+            <p className="mt-4 sm:mt-6 text-sm sm:text-base lg:text-lg text-coffee max-w-lg leading-relaxed">
               Curated plots in India's most strategic corridors. Clear titles, gated communities, and the patient compounding only land can offer.
             </p>
 
-            <div className="mt-10 flex flex-col sm:flex-row gap-4 items-start">
+            <div className="mt-7 sm:mt-10 flex flex-col gap-4 items-stretch sm:items-start w-full min-w-0">
               <EnquiryForm variant="compact" />
               <Link
                 to="/projects"
-                className="inline-flex items-center gap-2 px-5 py-3 text-[11px] tracking-[0.3em] uppercase text-coffee-deep border-b border-coffee-deep hover:text-gold hover:border-gold transition-colors"
+                className="inline-flex items-center gap-2 self-start px-1 sm:px-5 py-2 sm:py-3 text-[11px] tracking-[0.3em] uppercase text-coffee-deep border-b border-coffee-deep hover:text-gold hover:border-gold transition-colors"
               >
                 View Projects <ArrowUpRight size={14} />
               </Link>
             </div>
           </div>
 
-          <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-3xl border-t border-coffee/20 pt-10">
+          <div className="mt-12 sm:mt-20 grid grid-cols-2 md:grid-cols-4 gap-5 sm:gap-8 max-w-3xl border-t border-coffee/20 pt-8 sm:pt-10">
             {[
               { k: "14", v: "Years Curating Land" },
               { k: String(projects.length), v: "Premium Projects" },
               { k: "2,400+", v: "Investors Served" },
               { k: "100%", v: "Clear Titles" },
             ].map((s) => (
-              <div key={s.v}>
-                <div className="font-serif text-3xl text-coffee-deep">{s.k}</div>
-                <div className="eyebrow mt-1 text-coffee">{s.v}</div>
+              <div key={s.v} className="min-w-0">
+                <div className="font-serif text-2xl sm:text-3xl text-coffee-deep">{s.k}</div>
+                <div className="eyebrow mt-1 text-coffee !tracking-[0.18em] sm:!tracking-[0.4em] text-[0.62rem] sm:text-[0.7rem] leading-snug">
+                  {s.v}
+                </div>
               </div>
             ))}
           </div>
@@ -79,10 +81,10 @@ function HomePage() {
       </section>
 
       {/* INTRO QUOTE */}
-      <section className="bg-sand py-24 lg:py-32">
-        <div className="max-w-4xl mx-auto px-6 text-center">
+      <section className="bg-sand py-16 sm:py-24 lg:py-32">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
           <Quote className="mx-auto text-gold" size={36} />
-          <p className="mt-6 font-serif text-3xl lg:text-4xl text-coffee-deep leading-snug italic">
+          <p className="mt-6 font-serif text-2xl sm:text-3xl lg:text-4xl text-coffee-deep leading-snug italic">
             "They don't make land anymore. We simply find the parcels worth keeping for a generation."
           </p>
           <div className="eyebrow mt-8 text-coffee">— Aniket Kedari, Founding Partner</div>
@@ -90,12 +92,12 @@ function HomePage() {
       </section>
 
       {/* FEATURED PROJECTS */}
-      <section className="py-24 lg:py-32 bg-cream">
-        <div className="max-w-7xl mx-auto px-6 lg:px-10">
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-16">
+      <section className="py-16 sm:py-24 lg:py-32 bg-cream">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10 sm:mb-16">
             <div>
               <div className="eyebrow text-gold mb-4">Featured Projects</div>
-              <h2 className="font-serif text-4xl lg:text-5xl text-coffee-deep max-w-2xl leading-tight">
+              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-coffee-deep max-w-2xl leading-tight">
                 A portfolio of <em className="text-coffee">extraordinary</em> land.
               </h2>
             </div>
@@ -144,12 +146,12 @@ function HomePage() {
       </section>
 
       {/* WHY CHOOSE */}
-      <section className="relative py-24 lg:py-32 bg-coffee-deep text-cream overflow-hidden">
+      <section className="relative py-16 sm:py-24 lg:py-32 bg-coffee-deep text-cream overflow-hidden">
         <img src={topo} alt="" className="absolute inset-0 w-full h-full object-cover opacity-10 mix-blend-screen" loading="lazy" aria-hidden />
-        <div className="relative max-w-7xl mx-auto px-6 lg:px-10">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
           <div className="max-w-2xl">
             <div className="eyebrow text-gold mb-4">Why Veershree Realty</div>
-            <h2 className="font-serif text-4xl lg:text-5xl leading-tight">
+            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl leading-tight">
               The discipline of <em className="text-gold">land</em>, the discretion of a private bank.
             </h2>
           </div>
@@ -172,15 +174,15 @@ function HomePage() {
       </section>
 
       {/* INVESTMENT BENEFITS */}
-      <section className="py-24 lg:py-32 bg-cream">
-        <div className="max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-16 items-center">
+      <section className="py-16 sm:py-24 lg:py-32 bg-cream">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 grid lg:grid-cols-2 gap-10 sm:gap-16 items-center">
           <div className="relative aspect-[4/5] overflow-hidden">
             <img src={topo} alt="Topographic map illustration" className="w-full h-full object-cover" loading="lazy" />
             <div className="absolute inset-0 ring-1 ring-coffee-deep/10" />
           </div>
           <div>
             <div className="eyebrow text-gold mb-4">Land vs Apartments</div>
-            <h2 className="font-serif text-4xl lg:text-5xl text-coffee-deep leading-tight">
+            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-coffee-deep leading-tight">
               Why the <em className="text-coffee">wealthy</em><br />build on land.
             </h2>
             <p className="mt-6 text-coffee leading-relaxed max-w-lg">
@@ -207,15 +209,15 @@ function HomePage() {
       </section>
 
       {/* MAP */}
-      <section className="py-24 lg:py-32 bg-sand">
-        <div className="max-w-7xl mx-auto px-6 lg:px-10">
-          <div className="text-center mb-12">
+      <section className="py-16 sm:py-24 lg:py-32 bg-sand">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
+          <div className="text-center mb-10 sm:mb-12">
             <div className="eyebrow text-gold mb-4">Locations</div>
-            <h2 className="font-serif text-4xl lg:text-5xl text-coffee-deep">
+            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-coffee-deep">
               Strategically <em className="text-coffee">positioned</em>.
             </h2>
           </div>
-          <div className="aspect-[16/8] w-full overflow-hidden shadow-soft border border-border">
+          <div className="aspect-[16/10] sm:aspect-[16/8] w-full overflow-hidden shadow-soft border border-border">
             <iframe
               title="Project locations"
               src="https://www.google.com/maps?q=chakan+pune+maharashtra&output=embed&z=13"
@@ -228,23 +230,23 @@ function HomePage() {
       </section>
 
       {/* TESTIMONIALS */}
-      <section className="py-24 lg:py-32 bg-cream">
-        <div className="max-w-6xl mx-auto px-6 lg:px-10">
-          <div className="text-center mb-16">
+      <section className="py-16 sm:py-24 lg:py-32 bg-cream">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-10">
+          <div className="text-center mb-10 sm:mb-16">
             <div className="eyebrow text-gold mb-4">In Their Words</div>
-            <h2 className="font-serif text-4xl lg:text-5xl text-coffee-deep">
+            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-coffee-deep">
               The voices of <em className="text-coffee">our investors</em>.
             </h2>
           </div>
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-6 sm:gap-8">
             {[
               { q: "Veershree Realty made acquiring land feel like buying art — considered, transparent, and quietly powerful.", n: "Suraj T.", r: "Family Office, Pune" },
               { q: "I have invested with three developers. Only one returned my calls a decade later. That speaks volumes.", n: "Kalpesh P.", r: "Investor, Pune" },
               { q: "From documentation to handover, the experience was reminiscent of private banking.", n: "Sarang G.", r: "Customer, Pune" },
             ].map((t) => (
-              <figure key={t.n} className="bg-sand p-8 border-t-2 border-gold">
+              <figure key={t.n} className="bg-sand p-6 sm:p-8 border-t-2 border-gold">
                 <Quote className="text-gold" size={22} />
-                <blockquote className="font-serif text-xl text-coffee-deep mt-4 italic leading-snug">"{t.q}"</blockquote>
+                <blockquote className="font-serif text-lg sm:text-xl text-coffee-deep mt-4 italic leading-snug">"{t.q}"</blockquote>
                 <figcaption className="mt-6">
                   <div className="font-serif text-base text-coffee-deep">{t.n}</div>
                   <div className="eyebrow mt-1">{t.r}</div>
@@ -256,21 +258,21 @@ function HomePage() {
       </section>
 
       {/* LEAD CAPTURE */}
-      <section id="enquire" className="py-24 lg:py-32 bg-coffee-deep relative overflow-hidden">
+      <section id="enquire" className="py-16 sm:py-24 lg:py-32 pb-28 sm:pb-24 lg:pb-32 bg-coffee-deep relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-coffee-deep to-coffee" />
-        <div className="relative max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-16 items-center">
-          <div className="text-cream">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 grid lg:grid-cols-2 gap-10 sm:gap-16 items-center">
+          <div className="text-cream min-w-0">
             <div className="eyebrow text-gold mb-4">Begin the Conversation</div>
-            <h2 className="font-serif text-4xl lg:text-6xl leading-[1.05]">
+            <h2 className="font-serif text-3xl sm:text-4xl lg:text-6xl leading-[1.05]">
               Land doesn't wait.<br /><em className="text-gold italic">Neither should you.</em>
             </h2>
-            <p className="mt-6 text-cream/70 max-w-md leading-relaxed">
+            <p className="mt-6 text-cream/70 max-w-md leading-relaxed text-sm sm:text-base">
               Share your details and our investment advisor will reach out within one business hour. No pressure, no spam — only a quiet conversation about land.
             </p>
-            <div className="mt-10 flex items-center gap-6">
+            <div className="mt-8 sm:mt-10 flex items-center gap-6">
               <div>
                 <div className="eyebrow text-gold">Direct line</div>
-                <div className="font-serif text-2xl text-cream mt-1">+91 78755 81414</div>
+                <div className="font-serif text-xl sm:text-2xl text-cream mt-1">+91 78755 81414</div>
               </div>
             </div>
           </div>
