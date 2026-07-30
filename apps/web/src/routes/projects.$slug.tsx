@@ -1,6 +1,8 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { EnquiryForm } from "@/components/site/EnquiryForm";
+import { JsonLd } from "@/components/site/JsonLd";
 import { ArrowLeft, MapPin } from "lucide-react";
+import { breadcrumbJsonLd, buildPageHead, realEstateListingJsonLd, SITE } from "@/lib/seo";
 import { getErrorMessage } from "@/utils/api-error";
 import { apiClient } from "@/utils/ts-rest";
 
@@ -11,18 +13,18 @@ export const Route = createFileRoute("/projects/$slug")({
     if (response.status !== 200) throw new Error(getErrorMessage(response.body));
     return { project: response.body };
   },
-  head: ({ loaderData }) => ({
-    meta: loaderData
-      ? [
-          { title: `${loaderData.project.name} — Veershree Realty` },
-          { name: "description", content: loaderData.project.tagline },
-          { property: "og:title", content: `${loaderData.project.name} — ${loaderData.project.location}` },
-          { property: "og:description", content: loaderData.project.tagline },
-          { property: "og:image", content: loaderData.project.image },
-          { name: "twitter:image", content: loaderData.project.image },
-        ]
-      : [],
-  }),
+  head: ({ loaderData }) => {
+    if (!loaderData) return {};
+    const { project } = loaderData;
+    return buildPageHead({
+      title: `${project.name} Land Project in ${project.location} | ${SITE.name}`,
+      description:
+        project.description?.slice(0, 155) ||
+        `${project.tagline} — a ${SITE.name} (Veershree Real Estate) premium land project in ${project.location}.`,
+      path: `/projects/${project.slug}`,
+      image: project.image || undefined,
+    });
+  },
   component: ProjectDetail,
   notFoundComponent: () => (
     <div className="min-h-screen flex items-center justify-center">
@@ -44,6 +46,16 @@ function ProjectDetail() {
 
   return (
     <>
+      <JsonLd
+        data={[
+          breadcrumbJsonLd([
+            { name: "Home", path: "/" },
+            { name: "Projects", path: "/projects" },
+            { name: project.name, path: `/projects/${project.slug}` },
+          ]),
+          realEstateListingJsonLd(project),
+        ]}
+      />
       <section className="relative h-[80vh] min-h-[500px] flex items-end overflow-hidden">
         <img src={project.image} alt={project.name} className="absolute inset-0 w-full h-full object-cover animate-ken-burns" width={1600} height={1000} />
         <div className="absolute inset-0 bg-gradient-to-t from-coffee-deep/80 via-coffee-deep/20 to-transparent" />

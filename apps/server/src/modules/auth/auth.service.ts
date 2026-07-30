@@ -23,17 +23,22 @@ export type LoginResult = {
 export class AuthService implements OnModuleInit {
   constructor(@Inject(PrismaService) private readonly prisma: PrismaService) {}
 
+  // async onModuleInit() {
+  //   const count = await this.prisma.client.adminUser.count();
+  //   if (count > 0) return;
+
+  //   const passwordHash = await bcrypt.hash(env.ADMIN_SEED_PASSWORD, 10);
+  //   await this.prisma.client.adminUser.createMany({
+  //     data: SEED_USERS.map((username) => ({ username, passwordHash })),
+  //   });
+  //   console.log(`Seeded admin users: ${SEED_USERS.join(", ")} (password: ${env.ADMIN_SEED_PASSWORD})`);
+  // }
+
   async onModuleInit() {
-    const count = await this.prisma.client.adminUser.count();
-    if (count > 0) return;
-
-    const passwordHash = await bcrypt.hash(env.ADMIN_SEED_PASSWORD, 10);
-    await this.prisma.client.adminUser.createMany({
-      data: SEED_USERS.map((username) => ({ username, passwordHash })),
-    });
-    console.log(`Seeded admin users: ${SEED_USERS.join(", ")} (password: ${env.ADMIN_SEED_PASSWORD})`);
+    console.log("Skipping admin seed");
+    return;
   }
-
+  
   async login(username: string, password: string): Promise<LoginResult> {
     const user = await this.prisma.client.adminUser.findUnique({ where: { username } });
     if (!user) throw new UnauthorizedException("Invalid username or password");

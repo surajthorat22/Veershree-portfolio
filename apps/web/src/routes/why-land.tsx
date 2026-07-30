@@ -1,22 +1,29 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { EnquiryForm } from "@/components/site/EnquiryForm";
+import { JsonLd } from "@/components/site/JsonLd";
 import topo from "@/assets/topo-pattern.jpg";
+import { breadcrumbJsonLd, buildPageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/why-land")({
-  head: () => ({
-    meta: [
-      { title: "Why Land — Veershree Realty" },
-      { name: "description", content: "Why land remains the most enduring asset class — and why the wealthy quietly accumulate it." },
-      { property: "og:title", content: "Why Land — The Discipline of Real Wealth" },
-      { property: "og:description", content: "Apartments depreciate. Land doesn't." },
-    ],
-  }),
+  head: () =>
+    buildPageHead({
+      title: "Why Land Investment | Veershree Realty & Veershree Real Estate",
+      description:
+        "Why Veershree Realty recommends land over apartments — scarcity, compounding returns, and generational assets from Veershree Real Estate in Pune.",
+      path: "/why-land",
+    }),
   component: WhyLand,
 });
 
 function WhyLand() {
   return (
     <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Why Land", path: "/why-land" },
+        ])}
+      />
       <section className="pt-40 pb-20 bg-sand relative overflow-hidden">
         <img src={topo} alt="" className="absolute inset-0 w-full h-full object-cover opacity-15" loading="lazy" />
         <div className="relative max-w-5xl mx-auto px-6 lg:px-10 text-center">

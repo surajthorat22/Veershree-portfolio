@@ -5,9 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite dev",
+    "prebuild": "node ./scripts/generate-seo-files.mjs",
     "build": "vite build",
     "serve": "vite preview",
-    "start": "vite"
+    "start": "vite",
+    "seo:generate": "node ./scripts/generate-seo-files.mjs"
   },
   "dependencies": {
     "@Veershree-portfolio/api": "workspace:*",

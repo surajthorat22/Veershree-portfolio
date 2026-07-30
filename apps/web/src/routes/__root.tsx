@@ -4,6 +4,8 @@ import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { StickyContact } from "@/components/site/StickyContact";
 import { PageViewTracker } from "@/components/site/PageViewTracker";
+import { JsonLd } from "@/components/site/JsonLd";
+import { buildPageHead, organizationJsonLd, websiteJsonLd } from "@/lib/seo";
 
 import appCss from "../styles.css?url";
 
@@ -24,19 +26,17 @@ function NotFoundComponent() {
   );
 }
 
+const rootHead = buildPageHead({
+  title: "Veershree Realty | Veershree Real Estate — Premium Land Investments in Pune",
+  description:
+    "Veershree Realty (Veershree Real Estate) offers premium land plots, gated communities and clear-title real estate investments in Chakan, Pune and India's growth corridors.",
+  path: "/",
+});
+
 export const Route = createRootRoute({
   head: () => ({
-    meta: [
-      { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Veershree Realty — Premium Land Investments in India" },
-      { name: "description", content: "Curated premium land plots in India's most strategic corridors. Clear titles, gated communities, generational value." },
-      { property: "og:title", content: "Veershree Realty — Premium Land Investments" },
-      { property: "og:description", content: "Invest in land. Inherit a legacy." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-    links: [{ rel: "stylesheet", href: appCss }],
+    meta: [{ charSet: "utf-8" }, { name: "viewport", content: "width=device-width, initial-scale=1" }, ...rootHead.meta],
+    links: [{ rel: "stylesheet", href: appCss }, { rel: "icon", href: `${import.meta.env.BASE_URL}favicon.svg` }, ...rootHead.links],
   }),
   shellComponent: RootShell,
   component: RootComponent,
@@ -68,6 +68,7 @@ function RootComponent() {
 
   return (
     <>
+      <JsonLd data={[organizationJsonLd(), websiteJsonLd()]} />
       <PageViewTracker />
       <SiteHeader />
       <main>

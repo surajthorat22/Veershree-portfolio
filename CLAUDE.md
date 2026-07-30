@@ -16,6 +16,7 @@ This file provides context about the project for AI assistants.
 - Framework: react-vite
 - CSS: tailwind
 - UI Library: radix-ui
+- SEO: meta/canonical/Open Graph, JSON-LD, robots.txt, sitemap.xml
 
 ### Backend
 

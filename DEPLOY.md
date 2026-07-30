@@ -88,6 +88,7 @@ In GitHub → **Settings → Secrets and variables → Actions**:
 | Secret | Value |
 |--------|-------|
 | `VITE_SERVER_URL` | `https://<your-service>.onrender.com` (no trailing slash) |
+| `VITE_SITE_URL` | Public site origin, e.g. `https://veershreerealty.com` or your GitHub Pages URL |
 
 Optional repo **variable**:
 
@@ -134,10 +135,11 @@ https://<user>.github.io,http://localhost:5173
 
 ---
 
-## 6. Important production notes
+## 7. SEO after go-live
 
-- **Free Render** services spin down when idle → first request can be slow (cold start).
-- Images are stored on **Cloudinary**; no Render disk is required for uploads.
-- Older projects that still use `/rest/uploads/...` local paths need to be re-uploaded once.
-- `VITE_SERVER_URL` is baked in at **build time**. After changing the API URL, re-run the Pages workflow.
-- Production refuses to boot without strong JWT/admin secrets and Cloudinary credentials.
+1. Confirm `robots.txt` and `sitemap.xml` are reachable on the live site.
+2. Submit the sitemap in [Google Search Console](https://search.google.com/search-console).
+3. Create a Business Profile for **Veershree Realty** (maps/local brand searches).
+4. Prefer a custom domain (`veershreerealty.com`) over a long GitHub Pages URL for brand queries.
+
+Technical SEO is wired in the web app (titles, canonicals, Open Graph, JSON-LD, sitemap). Ranking #1 for brand terms still depends on Search Console verification, consistent NAP (name/address/phone), and links from directories/social.

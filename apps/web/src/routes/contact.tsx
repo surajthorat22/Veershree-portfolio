@@ -1,22 +1,29 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { EnquiryForm } from "@/components/site/EnquiryForm";
+import { JsonLd } from "@/components/site/JsonLd";
 import { Phone, Mail, MapPin, MessageCircle } from "lucide-react";
+import { breadcrumbJsonLd, buildPageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/contact")({
-  head: () => ({
-    meta: [
-      { title: "Contact — Veershree Realty" },
-      { name: "description", content: "Speak with our investment advisors. Visit our Pune Office or reach us by phone." },
-      { property: "og:title", content: "Contact Veershree Realty" },
-      { property: "og:description", content: "Quiet, considered conversations about land." },
-    ],
-  }),
+  head: () =>
+    buildPageHead({
+      title: "Contact Veershree Realty | Veershree Real Estate Pune",
+      description:
+        "Contact Veershree Realty in Chakan, Pune. Call +91 78755 81414 or email info@veershreerealty.com for premium land and real estate investment advice.",
+      path: "/contact",
+    }),
   component: ContactPage,
 });
 
 function ContactPage() {
   return (
     <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Contact", path: "/contact" },
+        ])}
+      />
       <section className="pt-40 pb-12 bg-sand">
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
           <div className="eyebrow text-gold mb-4">Get in Touch</div>

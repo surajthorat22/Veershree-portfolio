@@ -1,19 +1,20 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { EnquiryForm } from "@/components/site/EnquiryForm";
+import { JsonLd } from "@/components/site/JsonLd";
 import { QueryEmpty } from "@/components/site/QueryFeedback";
 import { ArrowUpRight, MapPin } from "lucide-react";
+import { breadcrumbJsonLd, buildPageHead } from "@/lib/seo";
 import { fetchProjects } from "@/utils/api";
 
 export const Route = createFileRoute("/projects/")({
   loader: () => fetchProjects(),
-  head: () => ({
-    meta: [
-      { title: "Projects — Veershree Realty" },
-      { name: "description", content: "Browse our portfolio of premium gated land developments across India." },
-      { property: "og:title", content: "Premium Land Projects — Veershree Realty" },
-      { property: "og:description", content: "Hand-picked land parcels in India's most strategic growth corridors." },
-    ],
-  }),
+  head: () =>
+    buildPageHead({
+      title: "Land Projects & Premium Plots | Veershree Realty",
+      description:
+        "Browse Veershree Realty projects — premium gated land developments and clear-title plots by Veershree Real Estate across Pune, Chakan and India's growth corridors.",
+      path: "/projects",
+    }),
   component: ProjectsPage,
 });
 
@@ -22,6 +23,12 @@ function ProjectsPage() {
 
   return (
     <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Projects", path: "/projects" },
+        ])}
+      />
       <section className="pt-40 pb-16 bg-sand">
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
           <div className="eyebrow text-gold mb-4">The Portfolio</div>

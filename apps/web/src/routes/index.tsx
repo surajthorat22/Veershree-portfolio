@@ -2,20 +2,20 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import heroImg from "@/assets/hero-aerial.jpg";
 import topo from "@/assets/topo-pattern.jpg";
 import { EnquiryForm } from "@/components/site/EnquiryForm";
+import { JsonLd } from "@/components/site/JsonLd";
 import { QueryEmpty } from "@/components/site/QueryFeedback";
 import { ArrowUpRight, ShieldCheck, Trees, TrendingUp, MapPin, Quote } from "lucide-react";
+import { breadcrumbJsonLd, buildPageHead, SITE } from "@/lib/seo";
 import { fetchProjects } from "@/utils/api";
 
 export const Route = createFileRoute("/")({
   loader: () => fetchProjects(),
-  head: () => ({
-    meta: [
-      { title: "Veershree Realty — Premium Land Investments in India" },
-      { name: "description", content: "Curated premium land plots in India's most strategic corridors. Clear titles, gated communities, generational value." },
-      { property: "og:title", content: "Veershree Realty — Invest in Land, Inherit a Legacy" },
-      { property: "og:description", content: "Hand-picked plots in India's most strategic growth corridors." },
-    ],
-  }),
+  head: () =>
+    buildPageHead({
+      title: "Veershree Realty | Veershree Real Estate — Premium Land Investments in Pune",
+      description: SITE.description,
+      path: "/",
+    }),
   component: HomePage,
 });
 
@@ -24,6 +24,11 @@ function HomePage() {
 
   return (
     <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+        ])}
+      />
       {/* HERO */}
       <section className="relative min-h-screen flex items-end overflow-hidden">
         <div className="absolute inset-0">
