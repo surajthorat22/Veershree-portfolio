@@ -1,15 +1,17 @@
+import { useEffect, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
+import type { Project } from "@Veershree-portfolio/api/index";
 import heroImg from "@/assets/hero-aerial.jpg";
 import topo from "@/assets/topo-pattern.jpg";
 import { EnquiryForm } from "@/components/site/EnquiryForm";
 import { JsonLd } from "@/components/site/JsonLd";
-import { QueryEmpty } from "@/components/site/QueryFeedback";
+import { ProjectsGridSkeleton, QueryEmpty, QueryError } from "@/components/site/QueryFeedback";
 import { ArrowUpRight, ShieldCheck, Trees, TrendingUp, MapPin, Quote } from "lucide-react";
 import { breadcrumbJsonLd, buildPageHead, SITE } from "@/lib/seo";
 import { fetchProjects } from "@/utils/api";
 
 export const Route = createFileRoute("/")({
-  loader: () => fetchProjects(),
+  // No route loader — home must paint immediately even when the API is cold-starting.
   head: () =>
     buildPageHead({
       title: "Veershree Realty | Veershree Real Estate — Premium Land Investments in Pune",
@@ -20,7 +22,39 @@ export const Route = createFileRoute("/")({
 });
 
 function HomePage() {
-  const projects = Route.useLoaderData();
+  const [projects, setProjects] = useState<Project[] | null>(null);
+  const [projectsError, setProjectsError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    setProjectsError(null);
+    setProjects(null);
+    void fetchProjects()
+      .then((data) => {
+        if (!cancelled) setProjects(data);
+      })
+      .catch((err: unknown) => {
+        if (cancelled) return;
+        setProjectsError(err instanceof Error ? err.message : "Failed to load projects");
+        setProjects([]);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  function retryProjects() {
+    setProjectsError(null);
+    setProjects(null);
+    void fetchProjects()
+      .then((data) => setProjects(data))
+      .catch((err: unknown) => {
+        setProjectsError(err instanceof Error ? err.message : "Failed to load projects");
+        setProjects([]);
+      });
+  }
 
   return (
     <>
@@ -64,8 +98,8 @@ function HomePage() {
 
           <div className="mt-12 sm:mt-20 grid grid-cols-2 md:grid-cols-4 gap-5 sm:gap-8 max-w-3xl border-t border-coffee/20 pt-8 sm:pt-10">
             {[
-              { k: "14", v: "Years Curating Land" },
-              { k: String(projects.length), v: "Premium Projects" },
+              { k: "16", v: "Years Curating Land" },
+              { k: "20+", v: "Projects Delivered" },
               { k: "2,400+", v: "Investors Served" },
               { k: "100%", v: "Clear Titles" },
             ].map((s) => (
@@ -106,7 +140,11 @@ function HomePage() {
             </Link>
           </div>
 
-          {projects.length === 0 ? (
+          {projects === null ? (
+            <ProjectsGridSkeleton count={3} />
+          ) : projectsError ? (
+            <QueryError message={projectsError} onRetry={retryProjects} />
+          ) : projects.length === 0 ? (
             <QueryEmpty title="No projects yet" description="Check back soon for our latest land offerings." />
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
