@@ -3,7 +3,12 @@ import { z } from "zod";
 
 const c = initContract();
 
-const projectStatus = z.union([z.literal("Open"), z.literal("Few Left"), z.literal("Sold Out")]);
+const projectStatus = z.union([
+  z.literal("Open"),
+  z.literal("Few Left"),
+  z.literal("Sold Out"),
+  z.literal("Coming Soon"),
+]);
 
 const project = z.object({
   id: z.string(),

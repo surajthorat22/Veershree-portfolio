@@ -15,6 +15,7 @@ enum ProjectStatus {
   Open
   FewLeft
   SoldOut
+  ComingSoon
 }
 
 model Project {

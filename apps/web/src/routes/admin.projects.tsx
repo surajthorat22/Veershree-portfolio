@@ -263,7 +263,10 @@ function ProjectModal({
             <Field label="Location"><input required value={form.location} onChange={(e) => setForm({ ...form, location: e.target.value })} className={inp} /></Field>
             <Field label="Status">
               <select value={form.status} onChange={(e) => setForm({ ...form, status: e.target.value as ProjectStatus })} className={inp}>
-                <option>Open</option><option>Few Left</option><option>Sold Out</option>
+                <option>Open</option>
+                <option>Few Left</option>
+                <option>Sold Out</option>
+                <option>Coming Soon</option>
               </select>
             </Field>
           </div>
