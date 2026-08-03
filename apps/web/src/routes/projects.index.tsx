@@ -10,9 +10,9 @@ export const Route = createFileRoute("/projects/")({
   loader: () => fetchProjects(),
   head: () =>
     buildPageHead({
-      title: "Land Projects & Premium Plots | Veershree Realty",
+      title: "Projects",
       description:
-        "Browse Veershree Realty projects — premium gated land developments and clear-title plots by Veershree Real Estate across Pune, Chakan and India's growth corridors.",
+        "Browse Veershree Realty land projects — premium gated plots and clear-title developments in Pune, Chakan and nearby growth corridors.",
       path: "/projects",
     }),
   component: ProjectsPage,

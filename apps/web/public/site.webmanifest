@@ -1,0 +1,26 @@
+{
+  "name": "Veershree Realty",
+  "short_name": "Veershree",
+  "description": "Premium land plots and gated communities in Chakan, Pune.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#2a1c14",
+  "theme_color": "#2a1c14",
+  "icons": [
+    {
+      "src": "/favicon-48x48.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}

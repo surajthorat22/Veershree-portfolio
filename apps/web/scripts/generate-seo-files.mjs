@@ -7,10 +7,30 @@ const publicDir = join(here, "../public");
 const siteUrl = (process.env.VITE_SITE_URL || "https://veershreerealty.com").replace(/\/$/, "");
 
 const routes = [
-  { path: "/", priority: "1.0", changefreq: "weekly" },
-  { path: "/projects", priority: "0.9", changefreq: "weekly" },
-  { path: "/why-land", priority: "0.8", changefreq: "monthly" },
-  { path: "/contact", priority: "0.8", changefreq: "monthly" },
+  {
+    path: "/",
+    priority: "1.0",
+    changefreq: "weekly",
+    title: "Veershree Realty — Premium Land Investments in Pune",
+  },
+  {
+    path: "/projects",
+    priority: "0.9",
+    changefreq: "weekly",
+    title: "Projects — Veershree Realty",
+  },
+  {
+    path: "/why-land",
+    priority: "0.8",
+    changefreq: "monthly",
+    title: "Why Land — Veershree Realty",
+  },
+  {
+    path: "/contact",
+    priority: "0.8",
+    changefreq: "monthly",
+    title: "Contact — Veershree Realty",
+  },
 ];
 
 mkdirSync(publicDir, { recursive: true });

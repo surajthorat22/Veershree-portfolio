@@ -137,9 +137,20 @@ https://<user>.github.io,http://localhost:5173
 
 ## 7. SEO after go-live
 
-1. Confirm `robots.txt` and `sitemap.xml` are reachable on the live site.
-2. Submit the sitemap in [Google Search Console](https://search.google.com/search-console).
+1. Confirm these URLs return **200** (not 404):
+   - `https://veershreerealty.com/favicon.ico`
+   - `https://veershreerealty.com/favicon-48x48.png`
+   - `https://veershreerealty.com/robots.txt`
+   - `https://veershreerealty.com/sitemap.xml`
+2. In [Google Search Console](https://search.google.com/search-console):
+   - Submit / refresh the sitemap
+   - Use **URL Inspection → Request indexing** for `/`, `/projects`, `/why-land`, `/contact`
+   - Under **Branding → Favicon** (or wait for recrawl), confirm the 48×48 PNG is detected
 3. Create a Business Profile for **Veershree Realty** (maps/local brand searches).
 4. Prefer a custom domain (`veershreerealty.com`) over a long GitHub Pages URL for brand queries.
 
-Technical SEO is wired in the web app (titles, canonicals, Open Graph, JSON-LD, sitemap). Ranking #1 for brand terms still depends on Search Console verification, consistent NAP (name/address/phone), and links from directories/social.
+**Favicon note:** Google Search ignores SVG-only favicons. This app ships `favicon.ico` + `favicon-48x48.png` (required). After deploy, favicon updates can take **days to weeks**.
+
+**Sitelinks note:** Links like Projects / Why Land / Contact under the main result are chosen by Google. We expose them via clear nav, sitemap, clean page titles, and `SiteNavigationElement` schema — they are not guaranteed and usually appear after enough traffic/crawling.
+
+Technical SEO is wired in the web app (titles, canonicals, Open Graph, JSON-LD, sitemap). Ranking and sitelinks still depend on Search Console verification, consistent NAP (name/address/phone), and links from directories/social.

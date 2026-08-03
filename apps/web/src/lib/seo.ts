@@ -12,7 +12,7 @@ export const SITE = {
   ],
   tagline: "Invest in land. Inherit a legacy.",
   description:
-    "Veershree Realty (Veershree Real Estate) offers premium land plots, gated communities and clear-title real estate investments in Chakan, Pune and India's top growth corridors since 2010.",
+    "Veershree Realty offers premium land plots, gated communities and clear-title real estate in Chakan, Pune. Direct line +91 78755 81414.",
   keywords: [
     "Veershree Realty",
     "Veershree Real Estate",
@@ -63,6 +63,28 @@ export function absoluteAsset(path: string): string {
 export function defaultOgImage(): string {
   return absoluteAsset("og-image.jpg");
 }
+
+export function siteLogoUrl(): string {
+  return absoluteAsset("favicon-192x192.png");
+}
+
+export const SITE_NAV = [
+  {
+    name: "Projects",
+    path: "/projects",
+    description: "Browse premium land projects and gated plots by Veershree Realty in Pune and Chakan.",
+  },
+  {
+    name: "Why Land",
+    path: "/why-land",
+    description: "Why land investment outperforms apartments — scarcity, compounding returns, and generational value.",
+  },
+  {
+    name: "Contact",
+    path: "/contact",
+    description: "Contact Veershree Realty in Chakan, Pune. Call +91 78755 81414 or email info@veershreerealty.com.",
+  },
+] as const;
 
 type PageSeoInput = {
   title: string;
@@ -123,7 +145,12 @@ export function organizationJsonLd() {
     legalName: SITE.name,
     alternateName: [...SITE.alternateNames],
     url,
-    logo: defaultOgImage(),
+    logo: {
+      "@type": "ImageObject",
+      url: siteLogoUrl(),
+      width: 192,
+      height: 192,
+    },
     image: defaultOgImage(),
     description: SITE.description,
     email: SITE.email,
@@ -172,6 +199,17 @@ export function websiteJsonLd() {
     publisher: { "@id": `${url}/#organization` },
     inLanguage: "en-IN",
   };
+}
+
+/** Helps Google understand primary site sections (Projects / Why Land / Contact). */
+export function siteNavigationJsonLd() {
+  return SITE_NAV.map((item) => ({
+    "@context": "https://schema.org",
+    "@type": "SiteNavigationElement",
+    name: item.name,
+    description: item.description,
+    url: absoluteUrl(item.path),
+  }));
 }
 
 export function breadcrumbJsonLd(items: Array<{ name: string; path: string }>) {

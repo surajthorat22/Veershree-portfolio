@@ -7,9 +7,9 @@ import { breadcrumbJsonLd, buildPageHead } from "@/lib/seo";
 export const Route = createFileRoute("/contact")({
   head: () =>
     buildPageHead({
-      title: "Contact Veershree Realty | Veershree Real Estate Pune",
+      title: "Contact",
       description:
-        "Contact Veershree Realty in Chakan, Pune. Call +91 78755 81414 or email info@veershreerealty.com for premium land and real estate investment advice.",
+        "Contact Veershree Realty in Chakan, Pune. Call +91 78755 81414 or email info@veershreerealty.com for land investment advice.",
       path: "/contact",
     }),
   component: ContactPage,

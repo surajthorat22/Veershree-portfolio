@@ -14,7 +14,7 @@ export const Route = createFileRoute("/")({
   // No route loader — home must paint immediately even when the API is cold-starting.
   head: () =>
     buildPageHead({
-      title: "Veershree Realty | Veershree Real Estate — Premium Land Investments in Pune",
+      title: "Veershree Realty — Premium Land Investments in Pune",
       description: SITE.description,
       path: "/",
     }),

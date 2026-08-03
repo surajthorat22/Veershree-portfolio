@@ -7,9 +7,9 @@ import { breadcrumbJsonLd, buildPageHead } from "@/lib/seo";
 export const Route = createFileRoute("/why-land")({
   head: () =>
     buildPageHead({
-      title: "Why Land Investment | Veershree Realty & Veershree Real Estate",
+      title: "Why Land",
       description:
-        "Why Veershree Realty recommends land over apartments — scarcity, compounding returns, and generational assets from Veershree Real Estate in Pune.",
+        "Why invest in land with Veershree Realty — scarcity, long-term compounding, flexibility, and generational value versus apartments.",
       path: "/why-land",
     }),
   component: WhyLand,
